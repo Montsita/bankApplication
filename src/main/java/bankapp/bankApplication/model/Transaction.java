@@ -22,4 +22,6 @@ public class Transaction {
 
     private double amount;
 
+    private Long originId;
+    private Long destinyId;
 }
