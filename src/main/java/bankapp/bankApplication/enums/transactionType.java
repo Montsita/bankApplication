@@ -1,6 +1,6 @@
 package bankapp.bankApplication.enums;
 
-public enum AccountTransaction {
+public enum transactionType {
     INCOME,
     EXPENSE
 }

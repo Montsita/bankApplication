@@ -13,10 +13,10 @@ public class StudentChecking extends Account{
 
 
     public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
-        this.setMonthlyMaintenanceFee(0);
+        this.setMonthlyMaintenanceFee(0.0);
     }
 
     public void setMinimumBalance(double minimumBalance) {
-        this.setMinimumBalance(0);
+        this.setMinimumBalance(0.0);
     }
 }

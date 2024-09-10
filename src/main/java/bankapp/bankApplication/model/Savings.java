@@ -14,6 +14,6 @@ public class Savings extends Account{
 
 
     public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
-        this.setMonthlyMaintenanceFee(0);
+        this.setMonthlyMaintenanceFee(0.0);
     }
 }
