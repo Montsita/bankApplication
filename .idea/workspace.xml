@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transfer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/transactionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/enums/AccountTransaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/CreditCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/CreditCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Savings.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Savings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/StudentChecking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/StudentChecking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
-    </list>
+    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,17 +57,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BankApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jose&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BankApplication.executor": "Run",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "jose",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="bankapp.bankApplication.BankApplication" />
