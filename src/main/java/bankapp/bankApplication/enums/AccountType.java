@@ -1,8 +1,8 @@
 package bankapp.bankApplication.enums;
 
 public enum AccountType {
-    STUDENTCHECKING,
     CHECKING,
+    STUDENTCHECKING,
     SAVINGS,
     CREDITCARD
 }
