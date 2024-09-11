@@ -5,19 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Checking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AdminService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/AccounHolderController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountHolderService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AddressService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AdminService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transfer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transfer.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +83,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "montse",
+    "git-widget-placeholder": "Merging main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot"
   }
