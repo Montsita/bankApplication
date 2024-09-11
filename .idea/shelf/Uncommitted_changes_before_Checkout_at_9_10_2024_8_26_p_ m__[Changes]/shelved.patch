@@ -1,0 +1,962 @@
+Index: src/main/java/bankapp/bankApplication/model/CreditCard.java
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/CreditCard.java b/src/main/java/bankapp/bankApplication/model/CreditCard.java
+deleted file mode 100644
+--- a/src/main/java/bankapp/bankApplication/model/CreditCard.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ /dev/null	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
+@@ -1,25 +0,0 @@
+-package bankapp.bankApplication.model;
+-
+-import jakarta.persistence.Entity;
+-import jakarta.persistence.JoinColumn;
+-import jakarta.persistence.OneToMany;
+-import lombok.Data;
+-
+-import java.util.List;
+-
+-@Data
+-@Entity
+-public class CreditCard extends Account{
+-    private float interestRate;
+-    private double creditLimit;
+-
+-
+-
+-    public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
+-        this.setMonthlyMaintenanceFee(0);
+-    }
+-
+-    public void setMinimumBalance(double minimumBalance) {
+-        this.setMinimumBalance(0);
+-    }
+-}
+Index: src/main/java/bankapp/bankApplication/model/Checking.java
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Checking.java b/src/main/java/bankapp/bankApplication/model/Checking.java
+deleted file mode 100644
+--- a/src/main/java/bankapp/bankApplication/model/Checking.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ /dev/null	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
+@@ -1,15 +0,0 @@
+-package bankapp.bankApplication.model;
+-
+-import jakarta.persistence.Entity;
+-import jakarta.persistence.JoinColumn;
+-import jakarta.persistence.OneToMany;
+-import lombok.Data;
+-
+-import java.util.List;
+-
+-@Data
+-@Entity
+-public class Checking extends Account{
+-
+-
+-}
+Index: src/main/java/bankapp/bankApplication/model/Savings.java
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Savings.java b/src/main/java/bankapp/bankApplication/model/Savings.java
+deleted file mode 100644
+--- a/src/main/java/bankapp/bankApplication/model/Savings.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ /dev/null	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
+@@ -1,19 +0,0 @@
+-package bankapp.bankApplication.model;
+-
+-import jakarta.persistence.Entity;
+-import jakarta.persistence.JoinColumn;
+-import jakarta.persistence.OneToMany;
+-import lombok.Data;
+-
+-import java.util.List;
+-
+-@Data
+-@Entity
+-public class Savings extends Account{
+-    private float interestRate;
+-
+-
+-    public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
+-        this.setMonthlyMaintenanceFee(0);
+-    }
+-}
+Index: src/main/java/bankapp/bankApplication/model/StudentChecking.java
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/StudentChecking.java b/src/main/java/bankapp/bankApplication/model/StudentChecking.java
+deleted file mode 100644
+--- a/src/main/java/bankapp/bankApplication/model/StudentChecking.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ /dev/null	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
+@@ -1,22 +0,0 @@
+-package bankapp.bankApplication.model;
+-
+-import jakarta.persistence.Entity;
+-import jakarta.persistence.JoinColumn;
+-import jakarta.persistence.OneToMany;
+-import lombok.Data;
+-
+-import java.util.List;
+-
+-@Data
+-@Entity
+-public class StudentChecking extends Account{
+-
+-
+-    public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
+-        this.setMonthlyMaintenanceFee(0);
+-    }
+-
+-    public void setMinimumBalance(double minimumBalance) {
+-        this.setMinimumBalance(0);
+-    }
+-}
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1725990979334)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch	(date 1725990979334)
+@@ -0,0 +1,34 @@
++Index: .idea/workspace.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AddressService.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AdminService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transfer.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transfer.class\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Montsita&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Montsita/bankApplication.git&quot;,\r\n    &quot;accountId&quot;: &quot;0ff5e35a-9b53-46c9-906e-d64d4c413459&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2lpKHuSrCQkCfVJCIK5dcV099GN\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.BankApplication.executor\": \"Run\",\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"jose\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot\",\r\n    \"run.code.analysis.last.selected.profile\": \"pProject Default\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"bankapp.bankApplication.BankApplication\" />\r\n      <module name=\"bankApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\" />\r\n      <created>1725871493326</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1725871493326</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/workspace.xml b/.idea/workspace.xml
++--- a/.idea/workspace.xml	(revision 568479d5e687a6167eb46fea0d8eeaac5886d761)
+++++ b/.idea/workspace.xml	(date 1725980400338)
++@@ -4,22 +4,7 @@
++     <option name="autoReloadType" value="SELECTIVE" />
++   </component>
++   <component name="ChangeListManager">
++-    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
++-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java" afterDir="false" />
++-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java" afterDir="false" />
++-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java" afterDir="false" />
++-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AddressService.java" afterDir="false" />
++-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AdminService.java" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transfer.java" beforeDir="false" />
++-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
++-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transfer.class" beforeDir="false" />
++-    </list>
+++    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="" />
++     <option name="SHOW_DIALOG" value="false" />
++     <option name="HIGHLIGHT_CONFLICTS" value="true" />
++     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+Index: src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java b/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992729583)
++++ b/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java	(date 1725992729583)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface AccountHolderRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1725990979334)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01__Changes_.xml	(date 1725990979334)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]" date="1725980534384" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 10/09/2024 17:01 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: src/main/java/bankapp/bankApplication/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/User.java b/src/main/java/bankapp/bankApplication/model/User.java
+new file mode 100644
+--- /dev/null	(date 1725990979347)
++++ b/src/main/java/bankapp/bankApplication/model/User.java	(date 1725990979347)
+@@ -0,0 +1,18 @@
++package bankapp.bankApplication.model;
++
++import jakarta.persistence.GeneratedValue;
++import jakarta.persistence.GenerationType;
++import jakarta.persistence.Id;
++import jakarta.persistence.MappedSuperclass;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++@Data
++@NoArgsConstructor
++@MappedSuperclass
++public class User {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private Long id;
++    private String name;
++}
+Index: src/main/java/bankapp/bankApplication/model/ThirdParty.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/ThirdParty.java b/src/main/java/bankapp/bankApplication/model/ThirdParty.java
+new file mode 100644
+--- /dev/null	(date 1725990979345)
++++ b/src/main/java/bankapp/bankApplication/model/ThirdParty.java	(date 1725990979345)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.model;
++
++import jakarta.persistence.Entity;
++import lombok.Data;
++
++@Data
++@Entity
++public class ThirdParty extends User  {
++    private String hashedKey;
++}
+Index: src/main/java/bankapp/bankApplication/enums/AccountTransaction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java b/src/main/java/bankapp/bankApplication/enums/TransactionType.java
+rename from src/main/java/bankapp/bankApplication/enums/AccountTransaction.java
+rename to src/main/java/bankapp/bankApplication/enums/TransactionType.java
+--- a/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/src/main/java/bankapp/bankApplication/enums/TransactionType.java	(date 1725991840029)
+@@ -1,6 +1,6 @@
+ package bankapp.bankApplication.enums;
+ 
+-public enum AccountTransaction {
++public enum TransactionType {
+     INCOME,
+     EXPENSE
+ }
+Index: src/main/java/bankapp/bankApplication/model/AccountHolder.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/AccountHolder.java b/src/main/java/bankapp/bankApplication/model/AccountHolder.java
+new file mode 100644
+--- /dev/null	(date 1725990979341)
++++ b/src/main/java/bankapp/bankApplication/model/AccountHolder.java	(date 1725990979341)
+@@ -0,0 +1,16 @@
++package bankapp.bankApplication.model;
++
++import jakarta.persistence.*;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++import java.time.LocalDate;
++
++@Data
++@Entity
++public class AccountHolder  extends User {
++    private LocalDate dataOfBirth;
++    @ManyToOne
++    private Address primaryAddress;
++    private String mailingAddress;
++}
+Index: src/main/java/bankapp/bankApplication/service/AccountHolderService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/AccountHolderService.java b/src/main/java/bankapp/bankApplication/service/AccountHolderService.java
+new file mode 100644
+--- /dev/null	(date 1725990979348)
++++ b/src/main/java/bankapp/bankApplication/service/AccountHolderService.java	(date 1725990979348)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class AccountHolderService {
++
++}
+Index: src/main/java/bankapp/bankApplication/service/AddressService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/AddressService.java b/src/main/java/bankapp/bankApplication/service/AddressService.java
+new file mode 100644
+--- /dev/null	(date 1725990979349)
++++ b/src/main/java/bankapp/bankApplication/service/AddressService.java	(date 1725990979349)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class AddressService {
++}
+Index: src/main/java/bankapp/bankApplication/model/Address.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Address.java b/src/main/java/bankapp/bankApplication/model/Address.java
+new file mode 100644
+--- /dev/null	(date 1725990979341)
++++ b/src/main/java/bankapp/bankApplication/model/Address.java	(date 1725990979341)
+@@ -0,0 +1,24 @@
++package bankapp.bankApplication.model;
++
++import jakarta.persistence.Entity;
++import jakarta.persistence.GeneratedValue;
++import jakarta.persistence.GenerationType;
++import jakarta.persistence.Id;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++@Data
++@Entity
++@NoArgsConstructor
++public class Address {
++    @Id
++    @GeneratedValue(strategy= GenerationType.IDENTITY)
++    private Long id;
++    private String street;
++    private String entrancePortal;
++    private String district;
++    private String postalCode;
++    private String city;
++    private String pais;
++
++}
+Index: src/main/java/bankapp/bankApplication/model/Admin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Admin.java b/src/main/java/bankapp/bankApplication/model/Admin.java
+new file mode 100644
+--- /dev/null	(date 1725990979342)
++++ b/src/main/java/bankapp/bankApplication/model/Admin.java	(date 1725990979342)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.model;
++
++import jakarta.persistence.Entity;
++import lombok.Data;
++
++@Data
++@Entity
++public abstract class Admin extends User{
++
++}
+Index: src/main/java/bankapp/bankApplication/service/AdminService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/AdminService.java b/src/main/java/bankapp/bankApplication/service/AdminService.java
+new file mode 100644
+--- /dev/null	(date 1725990979349)
++++ b/src/main/java/bankapp/bankApplication/service/AdminService.java	(date 1725990979349)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class AdminService {
++}
+Index: src/main/java/bankapp/bankApplication/controller/AccounHolderController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java b/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java
+new file mode 100644
+--- /dev/null	(date 1725990979336)
++++ b/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java	(date 1725990979336)
+@@ -0,0 +1,9 @@
++package bankapp.bankApplication.controller;
++
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/accountHolder")
++public class AccounHolderController {
++}
+Index: src/main/java/bankapp/bankApplication/enums/AccountType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/enums/AccountType.java b/src/main/java/bankapp/bankApplication/enums/AccountType.java
+new file mode 100644
+--- /dev/null	(date 1725991840021)
++++ b/src/main/java/bankapp/bankApplication/enums/AccountType.java	(date 1725991840021)
+@@ -0,0 +1,8 @@
++package bankapp.bankApplication.enums;
++
++public enum AccountType {
++    STUDENTCHECKING,
++    CHECKING,
++    SAVINGS,
++    CREDITCARD
++}
+Index: src/main/java/bankapp/bankApplication/controller/CreditCardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/CreditCardController.java b/src/main/java/bankapp/bankApplication/controller/AdminController.java
+rename from src/main/java/bankapp/bankApplication/controller/CreditCardController.java
+rename to src/main/java/bankapp/bankApplication/controller/AdminController.java
+--- a/src/main/java/bankapp/bankApplication/controller/CreditCardController.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/src/main/java/bankapp/bankApplication/controller/AdminController.java	(date 1725992309278)
+@@ -1,4 +1,9 @@
+ package bankapp.bankApplication.controller;
+ 
+-public class CreditCardController {
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/admin")
++public class AdminController {
+ }
+Index: src/main/java/bankapp/bankApplication/controller/ThirdPartyController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/ThirdPartyController.java b/src/main/java/bankapp/bankApplication/controller/ThirdPartyController.java
+new file mode 100644
+--- /dev/null	(date 1725992729607)
++++ b/src/main/java/bankapp/bankApplication/controller/ThirdPartyController.java	(date 1725992729607)
+@@ -0,0 +1,9 @@
++package bankapp.bankApplication.controller;
++
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/thirdParty")
++public class ThirdPartyController {
++}
+Index: src/main/java/bankapp/bankApplication/controller/CheckingController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/CheckingController.java b/src/main/java/bankapp/bankApplication/controller/AccountController.java
+rename from src/main/java/bankapp/bankApplication/controller/CheckingController.java
+rename to src/main/java/bankapp/bankApplication/controller/AccountController.java
+--- a/src/main/java/bankapp/bankApplication/controller/CheckingController.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/src/main/java/bankapp/bankApplication/controller/AccountController.java	(date 1725992230772)
+@@ -1,4 +1,9 @@
+ package bankapp.bankApplication.controller;
+ 
+-public class CheckingController {
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/account")
++public class AccountController {
+ }
+Index: src/main/java/bankapp/bankApplication/controller/AdressController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/AdressController.java b/src/main/java/bankapp/bankApplication/controller/AdressController.java
+new file mode 100644
+--- /dev/null	(date 1725992263721)
++++ b/src/main/java/bankapp/bankApplication/controller/AdressController.java	(date 1725992263721)
+@@ -0,0 +1,9 @@
++package bankapp.bankApplication.controller;
++
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/adress")
++public class AdressController {
++}
+Index: src/main/java/bankapp/bankApplication/repository/AccountRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/AccountRepository.java b/src/main/java/bankapp/bankApplication/repository/AccountRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992420979)
++++ b/src/main/java/bankapp/bankApplication/repository/AccountRepository.java	(date 1725992420979)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface AccountRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/repository/AdressRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/AdressRepository.java b/src/main/java/bankapp/bankApplication/repository/AdressRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992455346)
++++ b/src/main/java/bankapp/bankApplication/repository/AdressRepository.java	(date 1725992455346)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface AdressRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/controller/TransactionController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/TransactionController.java b/src/main/java/bankapp/bankApplication/controller/TransactionController.java
+new file mode 100644
+--- /dev/null	(date 1725992361128)
++++ b/src/main/java/bankapp/bankApplication/controller/TransactionController.java	(date 1725992361128)
+@@ -0,0 +1,9 @@
++package bankapp.bankApplication.controller;
++
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/transaction")
++public class TransactionController {
++}
+Index: src/main/java/bankapp/bankApplication/controller/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/UserController.java b/src/main/java/bankapp/bankApplication/controller/UserController.java
+new file mode 100644
+--- /dev/null	(date 1725992376343)
++++ b/src/main/java/bankapp/bankApplication/controller/UserController.java	(date 1725992376343)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.controller;
++
++
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++@RestController
++@RequestMapping("/user")
++public class UserController {
++}
+Index: src/main/java/bankapp/bankApplication/repository/TransactionRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java b/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992729615)
++++ b/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java	(date 1725992729615)
+@@ -0,0 +1,9 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface TransactionRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/repository/UserRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/UserRepository.java b/src/main/java/bankapp/bankApplication/repository/UserRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992574912)
++++ b/src/main/java/bankapp/bankApplication/repository/UserRepository.java	(date 1725992574912)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface UserRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/repository/AdminRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/AdminRepository.java b/src/main/java/bankapp/bankApplication/repository/AdminRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992476797)
++++ b/src/main/java/bankapp/bankApplication/repository/AdminRepository.java	(date 1725992476797)
+@@ -0,0 +1,10 @@
++package bankapp.bankApplication.repository;
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface AdminRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java b/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java
+new file mode 100644
+--- /dev/null	(date 1725992729599)
++++ b/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java	(date 1725992729599)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.repository;
++
++
++import bankapp.bankApplication.model.AccountHolder;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface ThirdPartyRepository extends JpaRepository<AccountHolder, Long>  {
++}
+Index: src/main/java/bankapp/bankApplication/service/TransactionService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/TransactionService.java b/src/main/java/bankapp/bankApplication/service/TransactionService.java
+new file mode 100644
+--- /dev/null	(date 1725992686574)
++++ b/src/main/java/bankapp/bankApplication/service/TransactionService.java	(date 1725992686574)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class TransactionService {
++
++}
+\ No newline at end of file
+Index: src/main/java/bankapp/bankApplication/model/Account.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport bankapp.bankApplication.enums.AccountStatus;\r\nimport com.fasterxml.jackson.annotation.JsonManagedReference;\r\nimport jakarta.persistence.*;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\n@Data\r\n@NoArgsConstructor\r\n@MappedSuperclass\r\npublic abstract class Account {\r\n\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long id;\r\n\r\n\r\n    private String accountNumber;\r\n    private double balance;\r\n    private String secretKey;\r\n    private String mainOwner;\r\n    private String secondaryOwner;\r\n    private LocalDate creationDate;\r\n    private double penaltyFee;\r\n    private double minimumBalance;\r\n    private double monthlyMaintenanceFee;\r\n\r\n\r\n    @Enumerated(EnumType.STRING)\r\n    private AccountStatus accountStatus;\r\n\r\n    @OneToMany\r\n    private List<Transaction> transactions;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Account.java b/src/main/java/bankapp/bankApplication/model/Account.java
+--- a/src/main/java/bankapp/bankApplication/model/Account.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/src/main/java/bankapp/bankApplication/model/Account.java	(date 1725992139460)
+@@ -1,7 +1,7 @@
+ package bankapp.bankApplication.model;
+ 
+ import bankapp.bankApplication.enums.AccountStatus;
+-import com.fasterxml.jackson.annotation.JsonManagedReference;
++import bankapp.bankApplication.enums.AccountType;
+ import jakarta.persistence.*;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+@@ -12,26 +12,36 @@
+ @Data
+ @NoArgsConstructor
+ @MappedSuperclass
+-public abstract class Account {
+-
++public class Account {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
+ 
+-
+     private String accountNumber;
+     private double balance;
+     private String secretKey;
+-    private String mainOwner;
+-    private String secondaryOwner;
++
++    @ManyToOne
++    private AccountHolder mainOwner;
++
++    @ManyToOne
++    private AccountHolder secondaryOwner;
++
+     private LocalDate creationDate;
+     private double penaltyFee;
+     private double minimumBalance;
+     private double monthlyMaintenanceFee;
+ 
++    //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants
++    // el setMonthlyMaintenanceFee i el minimumBalance
++    private float interestRate;
++    private double creditLimit;
+ 
+     @Enumerated(EnumType.STRING)
+-    private AccountStatus accountStatus;
++    private AccountType accountStatus;
++
++    @Enumerated(EnumType.STRING)
++    private AccountStatus accountType;
+ 
+     @OneToMany
+     private List<Transaction> transactions;
+Index: src/main/java/bankapp/bankApplication/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/UserService.java b/src/main/java/bankapp/bankApplication/service/UserService.java
+new file mode 100644
+--- /dev/null	(date 1725992711008)
++++ b/src/main/java/bankapp/bankApplication/service/UserService.java	(date 1725992711008)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class UserService {
++
++}
+\ No newline at end of file
+Index: src/main/java/bankapp/bankApplication/service/AccountService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/AccountService.java b/src/main/java/bankapp/bankApplication/service/AccountService.java
+new file mode 100644
+--- /dev/null	(date 1725992616306)
++++ b/src/main/java/bankapp/bankApplication/service/AccountService.java	(date 1725992616306)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class AccountService {
++
++}
+Index: src/main/java/bankapp/bankApplication/service/ThirdPartyService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/ThirdPartyService.java b/src/main/java/bankapp/bankApplication/service/ThirdPartyService.java
+new file mode 100644
+--- /dev/null	(date 1725992729590)
++++ b/src/main/java/bankapp/bankApplication/service/ThirdPartyService.java	(date 1725992729590)
+@@ -0,0 +1,11 @@
++package bankapp.bankApplication.service;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import java.util.List;
++import java.util.Optional;
++
++@Service
++public class ThirdPartyService {
++
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/uiDesigner.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountStatus.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Checking.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/README.md\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Montsita&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Montsita/bankApplication.git&quot;,\r\n    &quot;accountId&quot;: &quot;0ff5e35a-9b53-46c9-906e-d64d4c413459&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2lpKHuSrCQkCfVJCIK5dcV099GN\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.BankApplication.executor\": \"Run\",\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"montse\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"bankapp.bankApplication.BankApplication\" />\r\n      <module name=\"bankApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\" />\r\n      <created>1725871493326</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1725871493326</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/.idea/workspace.xml	(date 1725992729971)
+@@ -5,19 +5,62 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountStatus.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Checking.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01_[Changes]/shelved.patch" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_09_2024_17_01__Changes_.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AdressController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/ThirdPartyController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/TransactionController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/UserController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountType.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Address.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdminRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/UserRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AddressService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AdminService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/ThirdPartyService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/TransactionService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/UserService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/AccounHolderController.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/enums/transactionType.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/AccountHolder.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Address.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Admin.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/ThirdParty.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/User.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountHolderService.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AddressService.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AdminService.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CheckingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/CreditCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AdminController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/AccountTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/TransactionType.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Checking.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/CreditCard.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Savings.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/StudentChecking.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CheckingController.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/CreditCardController.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/enums/AccountTransaction.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/CreditCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/CreditCard.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Savings.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Savings.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/StudentChecking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/StudentChecking.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -28,6 +71,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Enum" />
++        <option value="Interface" />
+         <option value="Class" />
+       </list>
+     </option>
+@@ -77,7 +121,7 @@
+     "Application.Main.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "montse",
++    "git-widget-placeholder": "Merging main",
+     "kotlin-language-version-configured": "true",
+     "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot"
+   }
+Index: src/main/java/bankapp/bankApplication/model/Transaction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport bankapp.bankApplication.enums.AccountTransaction;\r\nimport jakarta.persistence.*;\r\nimport lombok.Data;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\n@Data\r\n@Entity\r\npublic class Transaction {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long id;\r\n\r\n    private double balance;\r\n\r\n    @Enumerated(EnumType.STRING)\r\n    private AccountTransaction accountTransaction;\r\n\r\n    private LocalDate transacionDate;\r\n\r\n    private double quantity;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Transaction.java b/src/main/java/bankapp/bankApplication/model/Transaction.java
+--- a/src/main/java/bankapp/bankApplication/model/Transaction.java	(revision 282c207b4e6970af35bedd28e6c192174d5f9ca9)
++++ b/src/main/java/bankapp/bankApplication/model/Transaction.java	(date 1725991840036)
+@@ -1,11 +1,10 @@
+ package bankapp.bankApplication.model;
+ 
+-import bankapp.bankApplication.enums.AccountTransaction;
++import bankapp.bankApplication.enums.TransactionType;
+ import jakarta.persistence.*;
+ import lombok.Data;
+ 
+ import java.time.LocalDate;
+-import java.util.List;
+ 
+ @Data
+ @Entity
+@@ -17,10 +16,12 @@
+     private double balance;
+ 
+     @Enumerated(EnumType.STRING)
+-    private AccountTransaction accountTransaction;
++    private TransactionType transactionType;
+ 
+     private LocalDate transacionDate;
+ 
+-    private double quantity;
++    private double amount;
+ 
++    private Long originId;
++    private Long destinyId;
+ }

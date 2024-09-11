@@ -1,11 +1,10 @@
 package bankapp.bankApplication.model;
 
-import bankapp.bankApplication.enums.AccountTransaction;
+import bankapp.bankApplication.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Entity
@@ -17,10 +16,12 @@ public class Transaction {
     private double balance;
 
     @Enumerated(EnumType.STRING)
-    private AccountTransaction accountTransaction;
+    private TransactionType transactionType;
 
     private LocalDate transacionDate;
 
-    private double quantity;
+    private double amount;
 
+    private Long originId;
+    private Long destinyId;
 }

@@ -1,7 +1,7 @@
 package bankapp.bankApplication.model;
 
 import bankapp.bankApplication.enums.AccountStatus;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import bankapp.bankApplication.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,26 +12,36 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class Account {
-
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String accountNumber;
     private double balance;
     private String secretKey;
-    private String mainOwner;
-    private String secondaryOwner;
+
+    @ManyToOne
+    private AccountHolder mainOwner;
+
+    @ManyToOne
+    private AccountHolder secondaryOwner;
+
     private LocalDate creationDate;
     private double penaltyFee;
     private double minimumBalance;
     private double monthlyMaintenanceFee;
 
+    //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants
+    // el setMonthlyMaintenanceFee i el minimumBalance
+    private float interestRate;
+    private double creditLimit;
 
     @Enumerated(EnumType.STRING)
-    private AccountStatus accountStatus;
+    private AccountType accountStatus;
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountType;
 
     @OneToMany
     private List<Transaction> transactions;
