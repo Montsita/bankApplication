@@ -1,0 +1,251 @@
+Index: src/main/java/bankapp/bankApplication/model/Account.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport bankapp.bankApplication.enums.AccountStatus;\r\nimport bankapp.bankApplication.enums.AccountType;\r\nimport jakarta.persistence.*;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport java.math.BigDecimal;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\n@Data\r\n@NoArgsConstructor\r\n@Entity\r\npublic class Account {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long id;\r\n\r\n    @Enumerated\r\n    private AccountType type;\r\n\r\n\r\n    private String accountNumber;\r\n    private Money balance;// en caso creditcard Jarko\r\n    private String secretKey;\r\n\r\n    @ManyToOne\r\n    private UserAccountHolder mainOwner;\r\n\r\n    @ManyToOne\r\n    private UserAccountHolder secondaryOwner;\r\n\r\n    private LocalDate creationDate;\r\n    private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto\r\n    private final Money penaltyFee=40;\r\n\r\n    private Money minimumBalance;\r\n    private Money monthlyMaintenanceFee;\r\n\r\n    //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants\r\n    // el setMonthlyMaintenanceFee i el minimumBalance\r\n    private Money interestRate; // en caso creditcard Jarko\r\n    private Money creditLimit; // en caso creditcard Jarko\r\n\r\n    @Enumerated(EnumType.STRING)\r\n    private AccountType accountStatus;\r\n\r\n    @OneToMany\r\n    private List<Transaction> transactions;\r\n\r\n    //attribute\r\n\r\n    public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {\r\n        switch (this.type){\r\n            case STUDENTCHECKING:\r\n                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());\r\n                break;\r\n\r\n            case CREDITCARD:\r\n                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());\r\n                break;\r\n\r\n            case SAVINGS:\r\n                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());\r\n                break;\r\n\r\n            case CHECKING:\r\n                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());\r\n                BigDecimal valor1 = new BigDecimal(\"12\");\r\n                BigDecimal valor2 = new BigDecimal(monthlyMaintenanceFee.getAmount());\r\n                if (monthlyMaintenanceFee.getAmount().compareTo(valor1))  {\r\n                    this.monthlyMaintenanceFee.increaseAmount(monthlyMaintenanceFee.getAmount());\r\n                }else{\r\n                    this.monthlyMaintenanceFee=valor;\r\n                }\r\n                break;\r\n            default:\r\n\r\n        }\r\n\r\n    }\r\n    public void setMinimumBalance(Money minimumBalance) {\r\n        switch (this.type){\r\n            case STUDENTCHECKING:\r\n                this.minimumBalance=0;\r\n                break;\r\n            case CREDITCARD:\r\n                this.minimumBalance=0;\r\n                break;\r\n            case SAVINGS:\r\n                if (minimumBalance >=100 && minimumBalance <=1000) {\r\n                    this.minimumBalance = minimumBalance;\r\n                }else{\r\n                    this.minimumBalance=100;\r\n                }\r\n                break;\r\n            case CHECKING:\r\n                if (minimumBalance>=250) {\r\n                    this.minimumBalance = minimumBalance;\r\n                }else{\r\n                    this.minimumBalance=250;\r\n                }\r\n                break;\r\n            default:\r\n\r\n        }\r\n    }\r\n\r\n    public void setInterestRate(Money interestRate) {\r\n        switch (this.type){\r\n            case STUDENTCHECKING:\r\n                this.interestRate=0F;\r\n                break;\r\n            case CREDITCARD:\r\n                if (interestRate>=0.1F) {\r\n                    this.interestRate=interestRate;\r\n                }else{\r\n                    this.interestRate=0.1F;\r\n                }\r\n                break;\r\n            case SAVINGS:\r\n                if (interestRate>=0.0025F && interestRate<=0.5F) {\r\n                    this.interestRate=interestRate;\r\n                }else{\r\n                    this.interestRate=0.0025F;\r\n                }\r\n                break;\r\n            case CHECKING:\r\n                this.interestRate=0.0F;\r\n                break;\r\n            default:\r\n\r\n        }\r\n    }\r\n\r\n    public void setCreditLimit(Money creditLimit) {\r\n        switch (this.type){\r\n            case STUDENTCHECKING:\r\n                this.creditLimit=0;\r\n                break;\r\n            case CREDITCARD:\r\n                if (creditLimit>100 && creditLimit<=100000) {\r\n                    this.creditLimit=creditLimit;\r\n                }else{\r\n                    this.creditLimit=100;\r\n                }\r\n                break;\r\n            case SAVINGS:\r\n                this.creditLimit=0;\r\n                break;\r\n            case CHECKING:\r\n                this.creditLimit=0;\r\n                break;\r\n            default:\r\n        }\r\n    }\r\n\r\n    public void setType(AccountType type) {\r\n        if(this.type != null) return;\r\n        // Inicializamos la cuenta a los valores por defecto\r\n        setCreditLimit(0);\r\n        setInterestRate(0);\r\n        setMinimumBalance(0);\r\n        setMonthlyMaintenanceFee(0);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Account.java b/src/main/java/bankapp/bankApplication/model/Account.java
+--- a/src/main/java/bankapp/bankApplication/model/Account.java	(revision d567603ce77d603f67816dc39f547de6826ceb37)
++++ b/src/main/java/bankapp/bankApplication/model/Account.java	(date 1726151658833)
+@@ -20,10 +20,15 @@
+ 
+     @Enumerated
+     private AccountType type;
+-
+-
+     private String accountNumber;
++
++    @Embedded
++    @AttributeOverrides({
++            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
++            @AttributeOverride(name= "currency", column = @Column(name= "balance_currency"))
++    })
+     private Money balance;// en caso creditcard Jarko
++
+     private String secretKey;
+ 
+     @ManyToOne
+@@ -34,14 +39,38 @@
+ 
+     private LocalDate creationDate;
+     private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto
+-    private final Money penaltyFee=40;
+ 
++    @Embedded
++    @AttributeOverrides({
++            @AttributeOverride(name = "amount", column = @Column(name = "penaltyFee_amount")),
++            @AttributeOverride(name= "currency", column = @Column(name= "penaltyFee_currency"))
++    })
++    private Money penaltyFee;
++
++    @Embedded
++    @AttributeOverrides({
++            @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount")),
++            @AttributeOverride(name= "currency", column = @Column(name= "minimumBalance_currency"))
++    })
+     private Money minimumBalance;
++
++    @Embedded
++    @AttributeOverrides({
++            @AttributeOverride(name = "amount", column = @Column(name = "monthlyMaintenanceFee_amount")),
++            @AttributeOverride(name= "currency", column = @Column(name= "monthlyMaintenanceFee_currency"))
++    })
+     private Money monthlyMaintenanceFee;
+ 
+     //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants
+     // el setMonthlyMaintenanceFee i el minimumBalance
+-    private Money interestRate; // en caso creditcard Jarko
++
++    private Float interestRate; // en caso creditcard Jarko
++
++    @Embedded
++    @AttributeOverrides({
++            @AttributeOverride(name = "amount", column = @Column(name = "creditLimit_amount")),
++            @AttributeOverride(name= "currency", column = @Column(name= "creditLimit_currency"))
++    })
+     private Money creditLimit; // en caso creditcard Jarko
+ 
+     @Enumerated(EnumType.STRING)
+@@ -68,12 +97,9 @@
+ 
+             case CHECKING:
+                 this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
+-                BigDecimal valor1 = new BigDecimal("12");
+-                BigDecimal valor2 = new BigDecimal(monthlyMaintenanceFee.getAmount());
+-                if (monthlyMaintenanceFee.getAmount().compareTo(valor1))  {
+-                    this.monthlyMaintenanceFee.increaseAmount(monthlyMaintenanceFee.getAmount());
+-                }else{
+-                    this.monthlyMaintenanceFee=valor;
++                BigDecimal valor = new BigDecimal("12");
++                if (monthlyMaintenanceFee.getAmount().compareTo(valor)!=0)  {
++                    this.monthlyMaintenanceFee.increaseAmount(valor);
+                 }
+                 break;
+             default:
+@@ -84,23 +110,28 @@
+     public void setMinimumBalance(Money minimumBalance) {
+         switch (this.type){
+             case STUDENTCHECKING:
+-                this.minimumBalance=0;
++                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
+                 break;
+             case CREDITCARD:
+-                this.minimumBalance=0;
++                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
+                 break;
+             case SAVINGS:
+-                if (minimumBalance >=100 && minimumBalance <=1000) {
+-                    this.minimumBalance = minimumBalance;
++                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
++                BigDecimal minor=new BigDecimal("100");
++                BigDecimal major=new BigDecimal("1000");
++                if (minimumBalance.getAmount().compareTo(minor)<=0 && minimumBalance.getAmount().compareTo(major)>=0) {
++                    this.minimumBalance.increaseAmount( minimumBalance.getAmount());
+                 }else{
+-                    this.minimumBalance=100;
++                    this.minimumBalance.increaseAmount(minor);
+                 }
+                 break;
+             case CHECKING:
+-                if (minimumBalance>=250) {
+-                    this.minimumBalance = minimumBalance;
++                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
++                BigDecimal valor=new BigDecimal("250");
++                if (minimumBalance.getAmount().compareTo(valor)>=0) {
++                    this.minimumBalance.increaseAmount(minimumBalance.getAmount());
+                 }else{
+-                    this.minimumBalance=250;
++                    this.minimumBalance.increaseAmount(valor);
+                 }
+                 break;
+             default:
+@@ -108,7 +139,7 @@
+         }
+     }
+ 
+-    public void setInterestRate(Money interestRate) {
++    public void setInterestRate(Float interestRate) {
+         switch (this.type){
+             case STUDENTCHECKING:
+                 this.interestRate=0F;
+@@ -138,20 +169,22 @@
+     public void setCreditLimit(Money creditLimit) {
+         switch (this.type){
+             case STUDENTCHECKING:
+-                this.creditLimit=0;
++                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
+                 break;
+             case CREDITCARD:
+-                if (creditLimit>100 && creditLimit<=100000) {
+-                    this.creditLimit=creditLimit;
++                BigDecimal minor=new BigDecimal("100");
++                BigDecimal major=new BigDecimal("100000");
++                if (creditLimit.getAmount().compareTo(minor)>=0 && creditLimit.getAmount().compareTo(major)<=0) {
++                    this.creditLimit.increaseAmount(creditLimit.getAmount());
+                 }else{
+-                    this.creditLimit=100;
++                    this.creditLimit.increaseAmount(minor);
+                 }
+                 break;
+             case SAVINGS:
+-                this.creditLimit=0;
++                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
+                 break;
+             case CHECKING:
+-                this.creditLimit=0;
++                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
+                 break;
+             default:
+         }
+@@ -160,9 +193,14 @@
+     public void setType(AccountType type) {
+         if(this.type != null) return;
+         // Inicializamos la cuenta a los valores por defecto
+-        setCreditLimit(0);
+-        setInterestRate(0);
+-        setMinimumBalance(0);
+-        setMonthlyMaintenanceFee(0);
++        BigDecimal b1 =new BigDecimal("0");
++        Money m1 = new Money(b1);
++        setCreditLimit(m1);
++        setMinimumBalance(m1);
++        setMonthlyMaintenanceFee(m1);
++        BigDecimal b2 = new BigDecimal("40");
++        Money m2 = new Money(b2);
++        setPenaltyFee(m2);
++        setInterestRate(0F);
+     }
+ }
+Index: src/main/java/bankapp/bankApplication/controller/AccountController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.controller;\r\n\r\nimport bankapp.bankApplication.model.Account;\r\nimport bankapp.bankApplication.service.AccountService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\n@RestController\r\n@RequestMapping(\"/account\")\r\npublic class AccountController {\r\n\r\n    @Autowired\r\n    private AccountService accountService;\r\n\r\n    @PostMapping\r\n    public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}\r\n    //IMPORTANTE QUE LO PRIMERO QUE PIDA SEA EL TYPEACCOUNT, para que le de valores iniciales y si el usuario nos da un\r\n    // valor que se sobrescriban con los valores del usuario\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/AccountController.java b/src/main/java/bankapp/bankApplication/controller/AccountController.java
+--- a/src/main/java/bankapp/bankApplication/controller/AccountController.java	(revision d567603ce77d603f67816dc39f547de6826ceb37)
++++ b/src/main/java/bankapp/bankApplication/controller/AccountController.java	(date 1726151692388)
+@@ -15,8 +15,8 @@
+     @Autowired
+     private AccountService accountService;
+ 
+-    @PostMapping
+-    public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
++   // @PostMapping
++   // public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
+     //IMPORTANTE QUE LO PRIMERO QUE PIDA SEA EL TYPEACCOUNT, para que le de valores iniciales y si el usuario nos da un
+     // valor que se sobrescriban con los valores del usuario
+ 
+Index: src/main/java/bankapp/bankApplication/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport jakarta.persistence.GeneratedValue;\r\nimport jakarta.persistence.GenerationType;\r\nimport jakarta.persistence.Id;\r\nimport jakarta.persistence.MappedSuperclass;\r\nimport lombok.Data;\r\nimport lombok.NoArgsConstructor;\r\n\r\n@Data\r\n@NoArgsConstructor\r\n@MappedSuperclass\r\npublic class User {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long id;\r\n    private String name;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/User.java b/src/main/java/bankapp/bankApplication/model/User.java
+--- a/src/main/java/bankapp/bankApplication/model/User.java	(revision d567603ce77d603f67816dc39f547de6826ceb37)
++++ b/src/main/java/bankapp/bankApplication/model/User.java	(date 1726152910199)
+@@ -15,4 +15,6 @@
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
+     private String name;
++
++
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Money.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/TransactionType.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserAccountHolder.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserAdmin.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserThirdParty.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdminRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdminRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/UserController.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/enums/transactionType.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/AccountHolder.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Admin.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/ThirdParty.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdressRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdressRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/UserRepository.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/UserService.class\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Montsita&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Montsita/bankApplication.git&quot;,\r\n    &quot;accountId&quot;: &quot;0ff5e35a-9b53-46c9-906e-d64d4c413459&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2lpKHuSrCQkCfVJCIK5dcV099GN\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.BankApplication.executor\": \"Run\",\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"montse\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"bankapp.bankApplication.BankApplication\" />\r\n      <module name=\"bankApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\" />\r\n      <created>1725871493326</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1725871493326</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d567603ce77d603f67816dc39f547de6826ceb37)
++++ b/.idea/workspace.xml	(date 1726150280874)
+@@ -5,7 +5,14 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_12_2024_10_22_a__m___Changes_.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_12_2024_10_22_a_ m__[Changes]/shelved.patch" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_12_2024_10_24_a__m___Changes_.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_12_2024_10_24_a_ m__[Changes]/shelved.patch" afterDir="false" />
+       <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Money.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserAccountHolder.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserAdmin.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserThirdParty.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/TransactionType.java" beforeDir="false" />
+@@ -95,7 +102,7 @@
+     "Application.Main.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "montse",
++    "git-widget-placeholder": "Merging jose",
+     "kotlin-language-version-configured": "true",
+     "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot"
+   }

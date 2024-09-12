@@ -20,10 +20,15 @@ public class Account {
 
     @Enumerated
     private AccountType type;
-
-
     private String accountNumber;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "balance_currency"))
+    })
     private Money balance;// en caso creditcard Jarko
+
     private String secretKey;
 
     @ManyToOne
@@ -34,14 +39,38 @@ public class Account {
 
     private LocalDate creationDate;
     private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto
-    private final Money penaltyFee=40;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "penaltyFee_amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "penaltyFee_currency"))
+    })
+    private Money penaltyFee;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "minimumBalance_currency"))
+    })
     private Money minimumBalance;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "monthlyMaintenanceFee_amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "monthlyMaintenanceFee_currency"))
+    })
     private Money monthlyMaintenanceFee;
 
     //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants
     // el setMonthlyMaintenanceFee i el minimumBalance
-    private Money interestRate; // en caso creditcard Jarko
+
+    private Float interestRate; // en caso creditcard Jarko
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "creditLimit_amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "creditLimit_currency"))
+    })
     private Money creditLimit; // en caso creditcard Jarko
 
     @Enumerated(EnumType.STRING)
@@ -68,12 +97,9 @@ public class Account {
 
             case CHECKING:
                 this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
-                BigDecimal valor1 = new BigDecimal("12");
-                BigDecimal valor2 = new BigDecimal(monthlyMaintenanceFee.getAmount());
-                if (monthlyMaintenanceFee.getAmount().compareTo(valor1))  {
-                    this.monthlyMaintenanceFee.increaseAmount(monthlyMaintenanceFee.getAmount());
-                }else{
-                    this.monthlyMaintenanceFee=valor;
+                BigDecimal valor = new BigDecimal("12");
+                if (monthlyMaintenanceFee.getAmount().compareTo(valor)!=0)  {
+                    this.monthlyMaintenanceFee.increaseAmount(valor);
                 }
                 break;
             default:
@@ -84,23 +110,28 @@ public class Account {
     public void setMinimumBalance(Money minimumBalance) {
         switch (this.type){
             case STUDENTCHECKING:
-                this.minimumBalance=0;
+                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
                 break;
             case CREDITCARD:
-                this.minimumBalance=0;
+                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
                 break;
             case SAVINGS:
-                if (minimumBalance >=100 && minimumBalance <=1000) {
-                    this.minimumBalance = minimumBalance;
+                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
+                BigDecimal minor=new BigDecimal("100");
+                BigDecimal major=new BigDecimal("1000");
+                if (minimumBalance.getAmount().compareTo(minor)<=0 && minimumBalance.getAmount().compareTo(major)>=0) {
+                    this.minimumBalance.increaseAmount( minimumBalance.getAmount());
                 }else{
-                    this.minimumBalance=100;
+                    this.minimumBalance.increaseAmount(minor);
                 }
                 break;
             case CHECKING:
-                if (minimumBalance>=250) {
-                    this.minimumBalance = minimumBalance;
+                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
+                BigDecimal valor=new BigDecimal("250");
+                if (minimumBalance.getAmount().compareTo(valor)>=0) {
+                    this.minimumBalance.increaseAmount(minimumBalance.getAmount());
                 }else{
-                    this.minimumBalance=250;
+                    this.minimumBalance.increaseAmount(valor);
                 }
                 break;
             default:
@@ -108,7 +139,7 @@ public class Account {
         }
     }
 
-    public void setInterestRate(Money interestRate) {
+    public void setInterestRate(Float interestRate) {
         switch (this.type){
             case STUDENTCHECKING:
                 this.interestRate=0F;
@@ -138,20 +169,22 @@ public class Account {
     public void setCreditLimit(Money creditLimit) {
         switch (this.type){
             case STUDENTCHECKING:
-                this.creditLimit=0;
+                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
                 break;
             case CREDITCARD:
-                if (creditLimit>100 && creditLimit<=100000) {
-                    this.creditLimit=creditLimit;
+                BigDecimal minor=new BigDecimal("100");
+                BigDecimal major=new BigDecimal("100000");
+                if (creditLimit.getAmount().compareTo(minor)>=0 && creditLimit.getAmount().compareTo(major)<=0) {
+                    this.creditLimit.increaseAmount(creditLimit.getAmount());
                 }else{
-                    this.creditLimit=100;
+                    this.creditLimit.increaseAmount(minor);
                 }
                 break;
             case SAVINGS:
-                this.creditLimit=0;
+                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
                 break;
             case CHECKING:
-                this.creditLimit=0;
+                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
                 break;
             default:
         }
@@ -160,9 +193,14 @@ public class Account {
     public void setType(AccountType type) {
         if(this.type != null) return;
         // Inicializamos la cuenta a los valores por defecto
-        setCreditLimit(0);
-        setInterestRate(0);
-        setMinimumBalance(0);
-        setMonthlyMaintenanceFee(0);
+        BigDecimal b1 =new BigDecimal("0");
+        Money m1 = new Money(b1);
+        setCreditLimit(m1);
+        setMinimumBalance(m1);
+        setMonthlyMaintenanceFee(m1);
+        BigDecimal b2 = new BigDecimal("40");
+        Money m2 = new Money(b2);
+        setPenaltyFee(m2);
+        setInterestRate(0F);
     }
 }

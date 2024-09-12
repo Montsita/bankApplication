@@ -15,8 +15,8 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping
-    public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
+   // @PostMapping
+   // public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
     //IMPORTANTE QUE LO PRIMERO QUE PIDA SEA EL TYPEACCOUNT, para que le de valores iniciales y si el usuario nos da un
     // valor que se sobrescriban con los valores del usuario
 
