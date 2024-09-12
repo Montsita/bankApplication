@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1" date="1726153112464" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 12/09/2024 16:56 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/bankapp/bankApplication/model/Account.class" />
+    <option name="AFTER_PATH" value="target/classes/bankapp/bankApplication/model/Account.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1/Account.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/bankapp/bankApplication/model/Account$1.class" />
+    <option name="AFTER_PATH" value="target/classes/bankapp/bankApplication/model/Account$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1/Account$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/bankapp/bankApplication/service/AccountService.class" />
+    <option name="AFTER_PATH" value="target/classes/bankapp/bankApplication/service/AccountService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1/AccountService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/bankapp/bankApplication/controller/AccountController.class" />
+    <option name="AFTER_PATH" value="target/classes/bankapp/bankApplication/controller/AccountController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_09_2024_16_56_[Changes]1/AccountController.class" />
+  </binary>
+</changelist>
