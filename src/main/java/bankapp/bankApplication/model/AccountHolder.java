@@ -15,4 +15,6 @@ public class AccountHolder extends User {
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address primaryAddress;
+
+
 }

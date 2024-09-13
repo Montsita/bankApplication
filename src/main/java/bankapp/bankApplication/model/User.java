@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +15,5 @@ public abstract class User {
     private String name;
 
     @OneToOne
-    private UserRegistration user;
+    private UserRegistration userRegistration;
 }

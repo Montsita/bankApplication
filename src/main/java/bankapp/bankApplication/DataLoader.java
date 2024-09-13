@@ -35,7 +35,8 @@ public class DataLoader  implements CommandLineRunner {
         UserRegistration userRegistration1 = new UserRegistration(admin1);
         userRegistrationRepository.save(userRegistration1);
 
-        admin1.setUser(userRegistration1);
+        admin1.setUserRegistration(userRegistration1);
+        adminRepository.save(admin1);
 
     }
 }
