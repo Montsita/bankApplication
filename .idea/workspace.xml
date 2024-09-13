@@ -5,37 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/enums/UserType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserRegistration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/enums/UserType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserRegistration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/DataLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/interfaces/AccountInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AddressRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/UserRegistrationRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserAccountHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserThirdParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountHolderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserRegistration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AccountRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdminRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/AdressRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/TransactionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Account.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/AccountHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/AccountHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Address.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserAccountHolder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserAdmin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserThirdParty.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountHolderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdressRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdressRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserRegistration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserRegistration.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +37,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

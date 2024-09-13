@@ -9,7 +9,10 @@ import java.time.LocalDate;
 @Entity
 public class AccountHolder extends User {
     private LocalDate dataOfBirth;
-    @ManyToOne
-    private Address primaryAddress;
+
     private String mailingAddress;
+
+    @ManyToOne
+    @JoinColumn(name="address_id")
+    private Address primaryAddress;
 }

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+//@Table(name = "user_registration",
+//        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "type"})})
 public class UserRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +21,10 @@ public class UserRegistration {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
-    private Long userId;
+
+    private User user;
+
+    public UserRegistration(User user) {
+        this.user = user;
+    }
 }

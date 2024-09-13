@@ -1,6 +1,8 @@
 package bankapp.bankApplication.model;
 
 import bankapp.bankApplication.enums.AccountType;
+import bankapp.bankApplication.interfaces.AccountInterface;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-public class Account {
+public class Account implements AccountInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -75,7 +77,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountType accountStatus;
 
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     private List<Transaction> transactions;
 
     //attribute
@@ -201,5 +203,11 @@ public class Account {
         Money m2 = new Money(b2);
         setPenaltyFee(m2);
         setInterestRate(0F);
+    }
+
+    @Override
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+        transaction.setAccount(this);
     }
 }

@@ -1,5 +1,7 @@
 package bankapp.bankApplication.model;
 
+import bankapp.bankApplication.enums.TransactionType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +16,9 @@ public class Transaction {
 
     private double balance;
 
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
+
     private LocalDate transacionDate;
 
     @Embedded
@@ -25,4 +30,8 @@ public class Transaction {
 
     private Long originId;
     private Long destinyId;
+
+    @ManyToOne
+    @JoinColumn(name="account_id")
+    private Account account;
 }
