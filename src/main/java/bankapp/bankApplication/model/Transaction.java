@@ -20,7 +20,12 @@ public class Transaction {
 
     private LocalDate transacionDate;
 
-    private double amount;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "amount")),
+            @AttributeOverride(name= "currency", column = @Column(name= "currency"))
+    })
+    private Money amount;
 
     private Long originId;
     private Long destinyId;

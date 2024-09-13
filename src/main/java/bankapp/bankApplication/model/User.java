@@ -1,9 +1,6 @@
 package bankapp.bankApplication.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,5 +13,6 @@ public class User {
     private Long id;
     private String name;
 
-
+    @OneToOne
+    private UserRegistration userName;
 }
