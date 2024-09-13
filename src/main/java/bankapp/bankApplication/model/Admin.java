@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Entity
-public class UserThirdParty extends User  {
-    private String hashedKey;
+public abstract class Admin extends User{
+
 }

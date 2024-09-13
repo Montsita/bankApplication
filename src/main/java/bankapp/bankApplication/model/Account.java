@@ -1,6 +1,5 @@
 package bankapp.bankApplication.model;
 
-import bankapp.bankApplication.enums.AccountStatus;
 import bankapp.bankApplication.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -32,10 +31,10 @@ public class Account {
     private String secretKey;
 
     @ManyToOne
-    private UserAccountHolder mainOwner;
+    private AccountHolder mainOwner;
 
     @ManyToOne
-    private UserAccountHolder secondaryOwner;
+    private AccountHolder secondaryOwner;
 
     private LocalDate creationDate;
     private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto
