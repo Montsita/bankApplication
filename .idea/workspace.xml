@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/AccountHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/ThirdParty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/UserRegistration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/repository/ThirdPartyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserRegistration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/model/UserRegistration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AccountRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdminRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/AdressRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/ThirdPartyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/repository/TransactionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountService.class" afterDir="false" />
-    </list>
+    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +64,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "jose",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot"
   }
