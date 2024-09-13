@@ -84,11 +84,19 @@ public class DataLoader  implements CommandLineRunner {
         Money money = new Money(new BigDecimal(20000));
         Account accountChk1 = new Account();
         accountChk1.setType(AccountType.CHECKING);
-        System.out.println("CREDIT LIMIT" +accountChk1.getCreditLimit().toString());
+        accountChk1.setMainOwner(accountHolder1);
+        accountChk1.setSecondaryOwner(accountHolder2);
         accountChk1.setBalance(money);
+        accountChk1.setCreationDate(LocalDate.now());
+        accountChk1.setLastDateUpdatedInterest(accountChk1.getCreationDate());
         accountRepository.save(accountChk1);
-        System.out.println("CREDIT LIMIT" +accountChk1.getCreditLimit().toString());
 
+        Transaction transaction1 = new Transaction();
+        transaction1.setTransacionDate(LocalDate.now());
+        transaction1.setAmount(new Money(new BigDecimal(-1000)));
+        transaction1.setBalance(new Money(new BigDecimal(19000)));
+        transaction1.setAccount(accountChk1);
+        transactionRepository.save(transaction1);
 
 
 

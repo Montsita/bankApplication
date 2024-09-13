@@ -16,10 +16,9 @@ public class Money {
     private final Currency currency;
     private BigDecimal amount;
 
-    //PREGUNTAR JARKO
-    //public Money() {
-        //this.currency = USD;
-    //}
+    public Money() {
+        this.currency = USD;
+    }
 
     /**
      * Class constructor specifying amount, currency, and rounding
