@@ -18,7 +18,7 @@ public class Address {
     private String district;
     private String postalCode;
     private String city;
-    private String pais;
+    private String country;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AccountHolder> accountHolder;

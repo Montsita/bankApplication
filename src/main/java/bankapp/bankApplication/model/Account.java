@@ -167,6 +167,7 @@ public class Account implements AccountInterface {
         }
     }
 
+
     public void setCreditLimit(Money creditLimit) {
         switch (this.type){
             case STUDENTCHECKING:
@@ -194,15 +195,21 @@ public class Account implements AccountInterface {
     public void setType(AccountType type) {
         if(this.type != null) return;
         // Inicializamos la cuenta a los valores por defecto
-        BigDecimal b1 =new BigDecimal("0");
-        Money m1 = new Money(b1);
-        setCreditLimit(m1);
-        setMinimumBalance(m1);
-        setMonthlyMaintenanceFee(m1);
+        this.type = type;
+
+        BigDecimal b1 =BigDecimal.ZERO;
+        this.creditLimit = new Money(b1);
+        this.minimumBalance = new Money(b1);
+        this.monthlyMaintenanceFee = new Money(b1);
+
         BigDecimal b2 = new BigDecimal("40");
-        Money m2 = new Money(b2);
-        setPenaltyFee(m2);
+        this.penaltyFee = new Money(b2);
+
+        setCreditLimit(this.creditLimit);
+        setMinimumBalance(this.minimumBalance);
+        setMonthlyMaintenanceFee(this.monthlyMaintenanceFee);
         setInterestRate(0F);
+
     }
 
     @Override
