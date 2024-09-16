@@ -1,5 +1,6 @@
 package bankapp.bankApplication.model;
 
+import bankapp.bankApplication.enums.AccountStatus;
 import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.interfaces.AccountInterface;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -7,8 +8,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -19,7 +23,7 @@ public class Account implements AccountInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private AccountType type;
     private String accountNumber;
 
@@ -75,7 +79,7 @@ public class Account implements AccountInterface {
     private Money creditLimit; // en caso creditcard Jarko
 
     @Enumerated(EnumType.STRING)
-    private AccountType accountStatus;
+    private AccountStatus accountStatus;
 
     @OneToMany(mappedBy = "id")
     private List<Transaction> transactions;
@@ -201,6 +205,7 @@ public class Account implements AccountInterface {
         this.creditLimit = new Money(b1);
         this.minimumBalance = new Money(b1);
         this.monthlyMaintenanceFee = new Money(b1);
+        this.accountStatus=AccountStatus.ACTIVE;
 
         BigDecimal b2 = new BigDecimal("40");
         this.penaltyFee = new Money(b2);
@@ -214,6 +219,9 @@ public class Account implements AccountInterface {
 
     @Override
     public void addTransaction(Transaction transaction) {
+        if (this.transactions == null){
+            this.transactions = new ArrayList<>();
+        }
         transactions.add(transaction);
         transaction.setAccount(this);
     }
