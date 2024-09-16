@@ -1,0 +1,168 @@
+Index: src/main/java/bankapp/bankApplication/model/Money.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport jakarta.persistence.Embeddable;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport java.math.RoundingMode;\r\nimport java.math.BigDecimal;\r\nimport java.util.Currency;\r\n\r\n@Embeddable\r\npublic class Money {\r\n\r\n    private static final Currency USD = Currency.getInstance(\"USD\");\r\n    private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;\r\n\r\n    private final Currency currency;\r\n    private BigDecimal amount;\r\n\r\n    //PREGUNTAR JARKO\r\n    //public Money() {\r\n        //this.currency = USD;\r\n    //}\r\n\r\n    /**\r\n     * Class constructor specifying amount, currency, and rounding\r\n     **/\r\n\r\n    public Money(BigDecimal amount, Currency currency, RoundingMode rounding) {\r\n        this.currency = currency;\r\n        setAmount(amount.setScale(currency.getDefaultFractionDigits(), rounding));\r\n    }\r\n\r\n    /**\r\n     * Class constructor specifying amount, and currency. Uses default RoundingMode HALF_EVEN.\r\n     **/\r\n    public Money(BigDecimal amount, Currency currency) {\r\n        this(amount, currency, DEFAULT_ROUNDING);\r\n    }\r\n\r\n    /**\r\n     * Class constructor specifying amount. Uses default RoundingMode HALF_EVEN and default currency USD.\r\n     **/\r\n    public Money(BigDecimal amount) {\r\n        this(amount, USD, DEFAULT_ROUNDING);\r\n    }\r\n\r\n    public BigDecimal increaseAmount(Money money) {\r\n        setAmount(this.amount.add(money.amount));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal increaseAmount(BigDecimal addAmount) {\r\n        setAmount(this.amount.add(addAmount));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal decreaseAmount(Money money) {\r\n        setAmount(this.amount.subtract(money.getAmount()));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal decreaseAmount(BigDecimal addAmount) {\r\n        setAmount(this.amount.subtract(addAmount));\r\n        return this.amount;\r\n    }\r\n\r\n    public Currency getCurrency() {\r\n        return this.currency;\r\n    }\r\n\r\n    public BigDecimal getAmount() {\r\n        return this.amount;\r\n    }\r\n\r\n    private void setAmount(BigDecimal amount) {\r\n        this.amount = amount;\r\n    }\r\n\r\n    public String toString() {\r\n        return getCurrency().getSymbol() + \" \" + getAmount();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Money.java b/src/main/java/bankapp/bankApplication/model/Money.java
+--- a/src/main/java/bankapp/bankApplication/model/Money.java	(revision 0d1a31525dca8170b3ebec01247080889e7c5092)
++++ b/src/main/java/bankapp/bankApplication/model/Money.java	(date 1726474547716)
+@@ -16,10 +16,10 @@
+     private final Currency currency;
+     private BigDecimal amount;
+ 
+-    //PREGUNTAR JARKO
+-    //public Money() {
+-        //this.currency = USD;
+-    //}
++
++    public Money() {
++        this.currency = USD;
++    }
+ 
+     /**
+      * Class constructor specifying amount, currency, and rounding
+Index: src/main/java/bankapp/bankApplication/service/AccountHolderService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.service;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\n@Service\r\npublic class AccountHolderService {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/service/AccountHolderService.java b/src/main/java/bankapp/bankApplication/service/AccountHolderService.java
+--- a/src/main/java/bankapp/bankApplication/service/AccountHolderService.java	(revision 0d1a31525dca8170b3ebec01247080889e7c5092)
++++ b/src/main/java/bankapp/bankApplication/service/AccountHolderService.java	(date 1726473779684)
+@@ -1,4 +1,6 @@
+ package bankapp.bankApplication.service;
++import bankapp.bankApplication.model.AccountHolder;
++import bankapp.bankApplication.repository.AccountHolderRepository;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+ 
+@@ -8,4 +10,14 @@
+ @Service
+ public class AccountHolderService {
+ 
++    @Autowired
++    private AccountHolderRepository accountHolderRepository;
++
++    public List<AccountHolder> getAll(){
++        return accountHolderRepository.findAll();
++    }
++
++    public Optional<AccountHolder> getById(Long id){
++        return accountHolderRepository.findById(id);
++    }
+ }
+Index: src/main/java/bankapp/bankApplication/controller/AccounHolderController.java
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java b/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java
+deleted file mode 100644
+--- a/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java	(revision 0d1a31525dca8170b3ebec01247080889e7c5092)
++++ /dev/null	(revision 0d1a31525dca8170b3ebec01247080889e7c5092)
+@@ -1,9 +0,0 @@
+-package bankapp.bankApplication.controller;
+-
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RestController;
+-
+-@RestController
+-@RequestMapping("/accountHolder")
+-public class AccounHolderController {
+-}
+Index: src/main/java/bankapp/bankApplication/controller/AccountHolderController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/controller/AccountHolderController.java b/src/main/java/bankapp/bankApplication/controller/AccountHolderController.java
+new file mode 100644
+--- /dev/null	(date 1726474116347)
++++ b/src/main/java/bankapp/bankApplication/controller/AccountHolderController.java	(date 1726474116347)
+@@ -0,0 +1,30 @@
++package bankapp.bankApplication.controller;
++
++import bankapp.bankApplication.model.AccountHolder;
++import bankapp.bankApplication.service.AccountHolderService;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.http.ResponseEntity;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RestController;
++
++import java.util.List;
++import java.util.Optional;
++
++@RestController
++@RequestMapping("/accountHolder")
++public class AccountHolderController {
++
++    @Autowired
++    private AccountHolderService accountHolderService;
++
++    @GetMapping
++    public List<AccountHolder> getAll(){ return accountHolderService.getAll();}
++
++    @GetMapping("/{id}")
++    public ResponseEntity<AccountHolder> getById(@PathVariable Long id){
++        Optional<AccountHolder> accountHolder = accountHolderService.getById(id);
++        return accountHolder.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"Interface\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Montsita&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Montsita/bankApplication.git&quot;,\r\n    &quot;accountId&quot;: &quot;0ff5e35a-9b53-46c9-906e-d64d4c413459&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2lpKHuSrCQkCfVJCIK5dcV099GN\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.BankApplication.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;montse&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"bankapp.bankApplication.BankApplication\" />\r\n      <module name=\"bankApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"65c3cec8-c7bc-414d-a8d4-4dc34624514a\" name=\"Changes\" comment=\"\" />\r\n      <created>1725871493326</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1725871493326</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 0d1a31525dca8170b3ebec01247080889e7c5092)
++++ b/.idea/workspace.xml	(date 1726474578895)
+@@ -4,7 +4,15 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="" />
++    <list default="true" id="65c3cec8-c7bc-414d-a8d4-4dc34624514a" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccountHolderController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/controller/AccounHolderController.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/model/Money.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bankapp/bankApplication/service/AccountHolderService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/controller/AccounHolderController.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountHolderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bankapp/bankApplication/service/AccountHolderService.class" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -58,17 +66,17 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Application.BankApplication.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;montse&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.BankApplication.executor": "Run",
++    "Application.Main.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "montse",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/Users/Montse/Desktop/BootcampIronHack/springBoot/Lab2JavaIntroToSpringBoot"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration name="Main" type="Application" factoryName="Application">
+       <option name="MAIN_CLASS_NAME" value="bankapp.bankApplication.BankApplication" />

@@ -1,5 +1,6 @@
 package bankapp.bankApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public abstract class User {
     private Long id;
     private String name;
 
+    @JsonManagedReference
     @OneToOne
     private UserRegistration userRegistration;
 }

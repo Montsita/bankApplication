@@ -74,11 +74,28 @@ public class DataLoader  implements CommandLineRunner {
         accountHolder1.setPrimaryAddress(adress1);
         accountHolderRepository.save(accountHolder1);
 
+        UserRegistration userRegistration3 = new UserRegistration(accountHolder1);
+        userRegistration3.setType(UserType.HOLDER);
+        userRegistration3.setUserName("userAntonia");
+        userRegistrationRepository.save(userRegistration3);
+
+        accountHolder1.setUserRegistration(userRegistration3);
+        accountHolderRepository.save(accountHolder1);
+
         AccountHolder accountHolder2 = new AccountHolder();
         accountHolder2.setName("Manolo");
         accountHolder2.setDataOfBirth(LocalDate.parse("1982-09-11"));
         accountHolder2.setMailingAddress("manolo@gmail.com");
         accountHolder2.setPrimaryAddress(adress1);
+        accountHolderRepository.save(accountHolder2);
+
+
+        UserRegistration userRegistration4 = new UserRegistration(accountHolder2);
+        userRegistration4.setType(UserType.HOLDER);
+        userRegistration4.setUserName("userManolo");
+        userRegistrationRepository.save(userRegistration4);
+
+        accountHolder2.setUserRegistration(userRegistration4);
         accountHolderRepository.save(accountHolder2);
 
         Money money = new Money(new BigDecimal(20000));
