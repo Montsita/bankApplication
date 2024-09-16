@@ -1,6 +1,7 @@
 package bankapp.bankApplication.model;
 
 import bankapp.bankApplication.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class UserRegistration {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
+
+    @JsonBackReference
     @OneToOne(mappedBy = "userRegistration")
     private User user;
 
