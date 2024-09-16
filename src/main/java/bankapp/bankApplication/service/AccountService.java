@@ -1,14 +1,10 @@
 package bankapp.bankApplication.service;
 import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
-import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.enums.UserType;
 import bankapp.bankApplication.exception.AdminNotFoundException;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
-import bankapp.bankApplication.model.AccountHolder;
-import bankapp.bankApplication.model.Admin;
 import bankapp.bankApplication.model.UserRegistration;
-import bankapp.bankApplication.repository.AccountHolderRepository;
 import bankapp.bankApplication.repository.AccountRepository;
 import bankapp.bankApplication.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +17,28 @@ import java.util.Optional;
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
     private UserRegistrationService userRegistrationService;
 
     public List<Account> getAll() { return accountRepository.findAll(); }
 
-    public Optional<Account> getById(Long id){ return accountRepository.findById(id); }
+    public Optional<Account> getById(Long id){ return accountRepository.findById(id);}
 
-    public Account create(Account account, RegistrationUpdateAllDTO registration) throws UnauthorizedException {
+
+    public Account create(Account account, String userName) throws UnauthorizedException {
         // Verifica si el admin existe en el repositorio
-        UserRegistration reg = userRegistrationService.getRegistrationByUserName(registration);
-        if (reg == null) {
-            throw new AdminNotFoundException("User with userName " + registration.getUsername() + " not found");
+
+        Optional<UserRegistration> regOptional = userRegistrationService.getRegistrationByUserName(userName);
+
+        if (!regOptional.isPresent()) {
+            throw new AdminNotFoundException("User with userName " + userName+ " not found");
         }
+
+        UserRegistration reg = regOptional.get();
 
         // Verifica si el tipo de usuario es ADMIN
         if (reg.getType() != UserType.ADMIN) {
@@ -41,7 +46,7 @@ public class AccountService {
         }
 
         // Verifica si el administrador existe en el repositorio
-        if (!adminRepository.existsById(reg.getId())) {
+        if (!adminRepository.existsById(reg.getUser().getId())) {
             throw new AdminNotFoundException("Admin with userName " + reg.getUserName() + " not found");
         }
 

@@ -6,6 +6,7 @@ import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,10 @@ public class AccountController {
         return account.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/account")
-    public Account create(@RequestBody Account account, @RequestBody RegistrationUpdateAllDTO registrationUserName) {
+    @PostMapping("/create")
+    public Account create(@RequestBody Account account, @RequestParam String userName) {
         try {
-            return accountService.create(account, registrationUserName);
+            return accountService.create(account, userName);
 
         } catch (UnauthorizedException e) {
             return null;
