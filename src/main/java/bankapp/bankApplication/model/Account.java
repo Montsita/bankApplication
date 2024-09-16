@@ -81,10 +81,10 @@ public class Account implements AccountInterface {
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "id")
     private List<Transaction> transactions;
 
-    //attribute
 
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         switch (this.type){

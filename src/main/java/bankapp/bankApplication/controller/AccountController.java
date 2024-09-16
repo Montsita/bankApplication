@@ -1,12 +1,15 @@
 package bankapp.bankApplication.controller;
 
 import bankapp.bankApplication.model.Account;
+import bankapp.bankApplication.model.Admin;
+import bankapp.bankApplication.model.Transaction;
 import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -14,6 +17,24 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @GetMapping
+    public List<Account> getAll(){ return accountService.getAll();}
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getById(@PathVariable Long id){
+        Optional<Account> account = accountService.getById(id);
+        return account.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/admin")
+    public Account create(@RequestBody Account account, @RequestBody Admin admin){ return accountService.create(account, admin);}
+
+
+
+
+
+
 
    // @PostMapping
    // public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
