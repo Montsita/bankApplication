@@ -110,16 +110,22 @@ public class DataLoader  implements CommandLineRunner {
 
         Transaction transaction1 = new Transaction();
         transaction1.setTransacionDate(LocalDate.now());
+        transaction1.setBalance(new Money(new BigDecimal(20000)));
         transaction1.setAmount(new Money(new BigDecimal(-1000)));
-        transaction1.setBalance(new Money(new BigDecimal(19000)));
         transaction1.setAccount(accountChk1);
         transactionRepository.save(transaction1);
 
+        //accountChk1.setBalance(new Money(new BigDecimal(19000)));
+        //accountRepository.save(accountChk1);
 
+        Transaction transaction2 = new Transaction();
+        transaction2.setTransacionDate(LocalDate.now());
+        transaction2.setBalance(new Money(new BigDecimal(19000)));
+        transaction2.setAmount(new Money(new BigDecimal(-20000)));
+        transaction2.setAccount(accountChk1);
+        transactionRepository.save(transaction2);
 
-
-
-
-
+        //accountChk1.setBalance(new Money(new BigDecimal(-1000)));
+        //accountRepository.save(accountChk1);
     }
 }

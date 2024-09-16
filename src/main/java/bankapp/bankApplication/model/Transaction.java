@@ -33,7 +33,7 @@ public class Transaction {
 
     private Long originId;
     private Long destinyId;
-
+    private String description;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name="account_id")
