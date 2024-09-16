@@ -1,8 +1,9 @@
 package bankapp.bankApplication.controller;
 
+import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
+import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
-import bankapp.bankApplication.model.Admin;
-import bankapp.bankApplication.model.Transaction;
+import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,29 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping
-    public List<Account> getAll(){ return accountService.getAll();}
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Account> getById(@PathVariable Long id){
-        Optional<Account> account = accountService.getById(id);
-        return account.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    public List<Account> getAll() {
+        return accountService.getAll();
     }
 
-    @PostMapping("/admin")
-    public Account create(@RequestBody Account account, @RequestBody Admin admin){ return accountService.create(account, admin);}
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getById(@PathVariable Long id) {
+        Optional<Account> account = accountService.getById(id);
+        return account.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/account")
+    public Account create(@RequestBody Account account, @RequestBody RegistrationUpdateAllDTO registrationUserName) {
+        try {
+            return accountService.create(account, registrationUserName);
+
+        } catch (UnauthorizedException e) {
+            return null;
+        }
+
+    }
 
 
+}
 
 
 
@@ -42,4 +54,4 @@ public class AccountController {
     // valor que se sobrescriban con los valores del usuario
 
 
-}
+
