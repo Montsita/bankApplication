@@ -109,7 +109,7 @@ public class DataLoader  implements CommandLineRunner {
         accountRepository.save(accountChk1);
 
         Transaction transaction1 = new Transaction();
-        transaction1.setTransacionDate(LocalDate.now());
+        transaction1.setTransactionDate(LocalDate.now());
         transaction1.setAmount(new Money(new BigDecimal(-1000)));
         transaction1.setBalance(new Money(new BigDecimal(19000)));
         transaction1.setAccount(accountChk1);

@@ -23,7 +23,7 @@ public class Transaction {
     })
     private Money balance;
 
-    private LocalDate transacionDate;
+    private LocalDate transactionDate;
     private LocalTime transactionTime;
 
     @Embedded
@@ -39,7 +39,7 @@ public class Transaction {
     private String description;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="account_id")
     private Account account;
 }
