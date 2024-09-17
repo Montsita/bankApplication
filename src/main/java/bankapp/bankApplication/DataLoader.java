@@ -116,8 +116,9 @@ public class DataLoader  implements CommandLineRunner {
         Transaction transaction2 = accountChk1.createTransaction(new Money(new BigDecimal(-20000))) ;//new Transaction();
         transactionRepository.save(transaction2);
 
-        if (accountChk1.minimumBalanceControl()) {
-            transactionRepository.saveAll(accountChk1.getTransactions());
+        Transaction transactionPenalty=accountChk1.minimumBalanceControl();
+        if (transactionPenalty!=null) {
+            transactionRepository.save(transactionPenalty);
         }
         accountRepository.save(accountChk1);
 

@@ -39,7 +39,6 @@ public class AccountController {
         } catch (UnauthorizedException e) {
             return null;
         }
-
     }
 
 

@@ -48,6 +48,8 @@ public class Account implements AccountInterface {
 
     private LocalDate creationDate;
     private LocalTime creationTime;
+    private LocalDate lastDateTransaction;
+    private LocalTime lastTimeTransaction;
     private LocalDate lastDateUpdatedInterest;
 
     @Embedded
@@ -130,20 +132,20 @@ public class Account implements AccountInterface {
         transaction.setAmount(amount);
         transaction.setBalance(new Money(this.balance.getAmount()));
         transaction.setAccount(this);
-        System.out.println("balance actual" + this.balance);
         this.balance.increaseAmount(amount.getAmount());
-        System.out.println("amount actual" + amount.getAmount());
+        this.lastDateTransaction=transaction.getTransacionDate();
+        this.lastTimeTransaction=transaction.getTransacionTime();
         return transaction;
     }
-    public boolean minimumBalanceControl(){
+    public Transaction minimumBalanceControl(){
         if (this.balance.getAmount().compareTo(this.minimumBalance.getAmount())<0) {
             Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
             Transaction transaction = createTransaction(amount);
             transaction.setDescription("PenaltyFee");
             addTransaction(transaction);
-            return true;
+            return transaction;
         }else{
-            return false;
+            return null;
         }
     }
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
