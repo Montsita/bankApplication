@@ -114,12 +114,5 @@ public class DataLoader  implements CommandLineRunner {
         transaction1.setBalance(new Money(new BigDecimal(19000)));
         transaction1.setAccount(accountChk1);
         transactionRepository.save(transaction1);
-
-
-
-
-
-
-
     }
 }
