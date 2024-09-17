@@ -131,13 +131,13 @@ public class Account implements AccountInterface {
     public Transaction createTransaction(Money amount){
         Transaction transaction= new Transaction();
         transaction.setTransacionDate(LocalDate.now());
-        transaction.setTransacionTime(LocalTime.now());
+        transaction.setTransactionTime(LocalTime.now());
         transaction.setAmount(amount);
         transaction.setBalance(new Money(this.balance.getAmount()));
         transaction.setAccount(this);
         this.balance.increaseAmount(amount.getAmount());
         this.lastDateTransaction=transaction.getTransacionDate();
-        this.lastTimeTransaction=transaction.getTransacionTime();
+        this.lastTimeTransaction=transaction.getTransactionTime();
         return transaction;
     }
     public Transaction minimumBalanceControl(){

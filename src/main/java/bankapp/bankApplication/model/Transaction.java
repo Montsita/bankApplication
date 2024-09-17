@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -23,6 +24,7 @@ public class Transaction {
     private Money balance;
 
     private LocalDate transacionDate;
+    private LocalTime transactionTime;
 
     @Embedded
     @AttributeOverrides({
@@ -33,6 +35,8 @@ public class Transaction {
 
     private Long originId;
     private Long destinyId;
+
+    private String description;
 
     @JsonBackReference
     @ManyToOne
