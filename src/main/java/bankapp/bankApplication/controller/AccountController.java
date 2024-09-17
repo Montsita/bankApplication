@@ -39,20 +39,30 @@ public class AccountController {
         } catch (UnauthorizedException e) {
             return null;
         }
+
     }
 
+    @PutMapping("/change")
+    public ResponseEntity<Account> change (@RequestBody Account account, @RequestParam String userName) {
+        try{
+            Optional<Account> change = accountService.change(account, userName);
+            return change.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+        } catch (UnauthorizedException e) {
+            return null;
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
+        if(accountService.delete(id, userName)){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 
 }
 
-
-
-
-
-   // @PostMapping
-   // public Account createAccount(@RequestBody Account account){ return accountService.createAccount(account);}
-    //IMPORTANTE QUE LO PRIMERO QUE PIDA SEA EL TYPEACCOUNT, para que le de valores iniciales y si el usuario nos da un
-    // valor que se sobrescriban con los valores del usuario
 
 
 

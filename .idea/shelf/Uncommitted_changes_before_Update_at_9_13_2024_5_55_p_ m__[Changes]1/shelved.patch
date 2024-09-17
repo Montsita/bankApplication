@@ -1,0 +1,25 @@
+Index: src/main/java/bankapp/bankApplication/model/Money.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package bankapp.bankApplication.model;\r\n\r\nimport jakarta.persistence.Embeddable;\r\nimport lombok.NoArgsConstructor;\r\n\r\nimport java.math.RoundingMode;\r\nimport java.math.BigDecimal;\r\nimport java.util.Currency;\r\n\r\n@Embeddable\r\npublic class Money {\r\n\r\n    private static final Currency USD = Currency.getInstance(\"USD\");\r\n    private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;\r\n\r\n    private final Currency currency;\r\n    private BigDecimal amount;\r\n\r\n    //PREGUNTAR JARKO\r\n    //public Money() {\r\n        //this.currency = USD;\r\n    //}\r\n\r\n    /**\r\n     * Class constructor specifying amount, currency, and rounding\r\n     **/\r\n\r\n    public Money(BigDecimal amount, Currency currency, RoundingMode rounding) {\r\n        this.currency = currency;\r\n        setAmount(amount.setScale(currency.getDefaultFractionDigits(), rounding));\r\n    }\r\n\r\n    /**\r\n     * Class constructor specifying amount, and currency. Uses default RoundingMode HALF_EVEN.\r\n     **/\r\n    public Money(BigDecimal amount, Currency currency) {\r\n        this(amount, currency, DEFAULT_ROUNDING);\r\n    }\r\n\r\n    /**\r\n     * Class constructor specifying amount. Uses default RoundingMode HALF_EVEN and default currency USD.\r\n     **/\r\n    public Money(BigDecimal amount) {\r\n        this(amount, USD, DEFAULT_ROUNDING);\r\n    }\r\n\r\n    public BigDecimal increaseAmount(Money money) {\r\n        setAmount(this.amount.add(money.amount));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal increaseAmount(BigDecimal addAmount) {\r\n        setAmount(this.amount.add(addAmount));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal decreaseAmount(Money money) {\r\n        setAmount(this.amount.subtract(money.getAmount()));\r\n        return this.amount;\r\n    }\r\n\r\n    public BigDecimal decreaseAmount(BigDecimal addAmount) {\r\n        setAmount(this.amount.subtract(addAmount));\r\n        return this.amount;\r\n    }\r\n\r\n    public Currency getCurrency() {\r\n        return this.currency;\r\n    }\r\n\r\n    public BigDecimal getAmount() {\r\n        return this.amount;\r\n    }\r\n\r\n    private void setAmount(BigDecimal amount) {\r\n        this.amount = amount;\r\n    }\r\n\r\n    public String toString() {\r\n        return getCurrency().getSymbol() + \" \" + getAmount();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/bankapp/bankApplication/model/Money.java b/src/main/java/bankapp/bankApplication/model/Money.java
+--- a/src/main/java/bankapp/bankApplication/model/Money.java	(revision 49aaf3671aa08186cd198772a3623ecd1cc30440)
++++ b/src/main/java/bankapp/bankApplication/model/Money.java	(date 1726238775429)
+@@ -16,10 +16,10 @@
+     private final Currency currency;
+     private BigDecimal amount;
+ 
+-    //PREGUNTAR JARKO
+-    //public Money() {
+-        //this.currency = USD;
+-    //}
++
++    public Money() {
++        this.currency = USD;
++    }
+ 
+     /**
+      * Class constructor specifying amount, currency, and rounding

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Component
 public class DataLoader  implements CommandLineRunner {
@@ -102,25 +101,24 @@ public class DataLoader  implements CommandLineRunner {
         Money money = new Money(new BigDecimal(20000));
         Account accountChk1 = new Account();
         accountChk1.setType(AccountType.CHECKING);
-        accountChk1.setCreationDate(LocalDate.now());
-        accountChk1.setCreationTime(LocalTime.now());
         accountChk1.setMainOwner(accountHolder1);
         accountChk1.setSecondaryOwner(accountHolder2);
         accountChk1.setBalance(money);
+        accountChk1.setCreationDate(LocalDate.now());
         accountChk1.setLastDateUpdatedInterest(accountChk1.getCreationDate());
         accountRepository.save(accountChk1);
 
-        Transaction transaction1 =accountChk1.createTransaction(new Money(new BigDecimal(-1000)));// new Transaction();
+        Transaction transaction1 = new Transaction();
+        transaction1.setTransactionDate(LocalDate.now());
+        transaction1.setAmount(new Money(new BigDecimal(-1000)));
+        transaction1.setBalance(new Money(new BigDecimal(19000)));
+        transaction1.setAccount(accountChk1);
         transactionRepository.save(transaction1);
 
-        Transaction transaction2 = accountChk1.createTransaction(new Money(new BigDecimal(-20000))) ;//new Transaction();
-        transactionRepository.save(transaction2);
 
-        Transaction transactionPenalty=accountChk1.minimumBalanceControl();
-        if (transactionPenalty!=null) {
-            transactionRepository.save(transactionPenalty);
-        }
-        accountRepository.save(accountChk1);
+
+
+
 
 
     }
