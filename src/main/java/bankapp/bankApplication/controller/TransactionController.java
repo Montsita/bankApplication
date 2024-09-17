@@ -1,13 +1,11 @@
 package bankapp.bankApplication.controller;
 
+import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Transaction;
 import bankapp.bankApplication.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,5 +23,11 @@ public class TransactionController {
     public ResponseEntity<Transaction> getById(@PathVariable Long id){
         Optional<Transaction> transaction = transactionService.getById(id);
         return transaction.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    }
+    //preguntar a Jarko
+    @DeleteMapping("/{account_id}")
+    public ResponseEntity<Void> delete(@PathVariable Long accountId)  {
+        transactionService.delete(accountId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -50,8 +50,6 @@ public class Account implements AccountInterface {
 
     private LocalDate creationDate;
     private LocalTime creationTime;
-    private LocalDate lastDateTransaction;
-    private LocalTime lastTimeTransaction;
     private LocalDate lastDateUpdatedInterest;
     //changes
 
@@ -136,8 +134,6 @@ public class Account implements AccountInterface {
         transaction.setBalance(new Money(this.balance.getAmount()));
         transaction.setAccount(this);
         this.balance.increaseAmount(amount.getAmount());
-        this.lastDateTransaction=transaction.getTransactionDate();
-        this.lastTimeTransaction=transaction.getTransactionTime();
         return transaction;
     }
     public Transaction minimumBalanceControl(){
