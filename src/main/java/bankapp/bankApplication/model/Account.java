@@ -3,6 +3,7 @@ package bankapp.bankApplication.model;
 import bankapp.bankApplication.enums.AccountStatus;
 import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.interfaces.AccountInterface;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -11,8 +12,10 @@ import lombok.NoArgsConstructor;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -32,8 +35,9 @@ public class Account implements AccountInterface {
             @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
             @AttributeOverride(name= "currency", column = @Column(name= "balance_currency"))
     })
-    private Money balance;// en caso creditcard Jarko
+    private Money balance;
 
+    @JsonIgnore
     private String secretKey;
 
     @ManyToOne
@@ -45,7 +49,11 @@ public class Account implements AccountInterface {
     private AccountHolder secondaryOwner;
 
     private LocalDate creationDate;
-    private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto
+    private LocalTime creationTime;
+    private LocalDate lastDateTransaction;
+    private LocalTime lastTimeTransaction;
+    private LocalDate lastDateUpdatedInterest;
+    //changes
 
     @Embedded
     @AttributeOverrides({
@@ -78,16 +86,71 @@ public class Account implements AccountInterface {
             @AttributeOverride(name = "amount", column = @Column(name = "creditLimit_amount")),
             @AttributeOverride(name= "currency", column = @Column(name= "creditLimit_currency"))
     })
-    private Money creditLimit; // en caso creditcard Jarko
+    private Money creditLimit;
 
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "account")
     private List<Transaction> transactions;
 
+    public void interestRateApply(){
+        BigDecimal i =new BigDecimal(this.interestRate);
+        BigDecimal b = this.getCreditLimit().decreaseAmount(this.balance.getAmount());
+        BigDecimal r=b.multiply(i);
+        LocalDate date =null;
+        switch (this.type){
+            case CREDITCARD:
+                date =this.lastDateUpdatedInterest.plusDays(30);
+                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                    r=new BigDecimal(0).subtract(r);
+                    interestRateApply(r);
+                }
+                break;
+            case SAVINGS:
+                date =this.lastDateUpdatedInterest.plusDays(365);
+                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                        interestRateApply(r);
+                }
+                break;
+             default:
+        }
 
+    }
+    private void interestRateApply(BigDecimal interesting){
+        if (interesting.compareTo(BigDecimal.ZERO)!=0) {
+            Transaction transaction=createTransaction(new Money(interesting));
+            transaction.setDescription("InterestRate apply");
+            addTransaction(transaction);
+
+            this.getBalance().increaseAmount(interesting);
+        }
+        this.setLastDateUpdatedInterest(LocalDate.now());
+    }
+    public Transaction createTransaction(Money amount){
+        Transaction transaction= new Transaction();
+        transaction.setTransacionDate(LocalDate.now());
+        transaction.setTransacionTime(LocalTime.now());
+        transaction.setAmount(amount);
+        transaction.setBalance(new Money(this.balance.getAmount()));
+        transaction.setAccount(this);
+        this.balance.increaseAmount(amount.getAmount());
+        this.lastDateTransaction=transaction.getTransacionDate();
+        this.lastTimeTransaction=transaction.getTransacionTime();
+        return transaction;
+    }
+    public Transaction minimumBalanceControl(){
+        if (this.balance.getAmount().compareTo(this.minimumBalance.getAmount())<0) {
+            Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
+            Transaction transaction = createTransaction(amount);
+            transaction.setDescription("PenaltyFee");
+            addTransaction(transaction);
+            return transaction;
+        }else{
+            return null;
+        }
+    }
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         switch (this.type){
             case STUDENTCHECKING:
@@ -211,7 +274,8 @@ public class Account implements AccountInterface {
 
         BigDecimal b2 = new BigDecimal("40");
         this.penaltyFee = new Money(b2);
-
+        this.setCreationDate(LocalDate.now());
+        this.setLastDateUpdatedInterest(this.getCreationDate());
         setCreditLimit(this.creditLimit);
         setMinimumBalance(this.minimumBalance);
         setMonthlyMaintenanceFee(this.monthlyMaintenanceFee);
@@ -219,12 +283,12 @@ public class Account implements AccountInterface {
 
     }
 
+
     @Override
     public void addTransaction(Transaction transaction) {
         if (this.transactions == null){
             this.transactions = new ArrayList<>();
         }
-        transactions.add(transaction);
-        transaction.setAccount(this);
+        this.transactions.add(transaction);
     }
 }
