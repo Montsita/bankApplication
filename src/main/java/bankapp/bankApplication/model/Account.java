@@ -3,6 +3,7 @@ package bankapp.bankApplication.model;
 import bankapp.bankApplication.enums.AccountStatus;
 import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.interfaces.AccountInterface;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -11,8 +12,10 @@ import lombok.NoArgsConstructor;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -32,8 +35,9 @@ public class Account implements AccountInterface {
             @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
             @AttributeOverride(name= "currency", column = @Column(name= "balance_currency"))
     })
-    private Money balance;// en caso creditcard Jarko
+    private Money balance;
 
+    @JsonIgnore
     private String secretKey;
 
     @ManyToOne
@@ -43,7 +47,8 @@ public class Account implements AccountInterface {
     private AccountHolder secondaryOwner;
 
     private LocalDate creationDate;
-    private LocalDate lastDateUpdatedInterest; //aplicar fórmula del interés compuesto
+    private LocalTime creationTime;
+    private LocalDate lastDateUpdatedInterest;
 
     @Embedded
     @AttributeOverrides({
@@ -82,65 +87,65 @@ public class Account implements AccountInterface {
     private AccountStatus accountStatus;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "account")
     private List<Transaction> transactions;
 
-
-    public void setBalance(Money newBalance){
-        this.balance=newBalance;
-        if (this.balance.getAmount().compareTo(this.minimumBalance.getAmount())<=0) {
-
-            this.balance.getAmount().subtract(this.penaltyFee.getAmount());
-
-            Transaction transaction= new Transaction();
-            transaction.setTransacionDate(LocalDate.now());
-            transaction.setAmount(new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount())));
-            transaction.setBalance(new Money(this.balance.getAmount()));
-            transaction.setDescription("PenaltyFee");
-
-            addTransaction(transaction);
-            System.out.println("valo de money =" + newBalance.getAmount());
-
-        }
-    }
     public void interestRateApply(){
         BigDecimal i =new BigDecimal(this.interestRate);
-        BigDecimal b =this.balance.getAmount();
-        BigDecimal r=new BigDecimal(0);
+        BigDecimal b = this.getCreditLimit().decreaseAmount(this.balance.getAmount());
+        BigDecimal r=b.multiply(i);
+        LocalDate date =null;
         switch (this.type){
             case CREDITCARD:
-                if (this.lastDateUpdatedInterest.plusDays(30).equals(LocalDate.now())){
-                    r=b.multiply(i);
-
-                    Transaction transaction= new Transaction();
-                    transaction.setTransacionDate(LocalDate.now());
-                    transaction.setAmount(new Money(r));
-                    transaction.setBalance(this.getBalance());
-                    transaction.setDescription("InterestRate apply");
-                    addTransaction(transaction);
-
-                    this.getBalance().increaseAmount(r);
+                date =this.lastDateUpdatedInterest.plusDays(30);
+                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                    r=new BigDecimal(0).subtract(r);
+                    interestRateApply(r);
                 }
-
                 break;
             case SAVINGS:
-                if (this.lastDateUpdatedInterest.plusDays(365).equals(LocalDate.now())){
-                    r=b.multiply(i);
-
-                    Transaction transaction= new Transaction();
-                    transaction.setTransacionDate(LocalDate.now());
-                    transaction.setAmount(new Money(r));
-                    transaction.setBalance(this.getBalance());
-                    transaction.setDescription("InterestRate apply");
-                    addTransaction(transaction);
-
-                    this.getBalance().increaseAmount(r);
+                date =this.lastDateUpdatedInterest.plusDays(365);
+                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                        interestRateApply(r);
                 }
                 break;
-            default:
+             default:
+        }
+
+    }
+    private void interestRateApply(BigDecimal interesting){
+        if (interesting.compareTo(BigDecimal.ZERO)!=0) {
+            Transaction transaction=createTransaction(new Money(interesting));
+            transaction.setDescription("InterestRate apply");
+            addTransaction(transaction);
+
+            this.getBalance().increaseAmount(interesting);
+        }
+        this.setLastDateUpdatedInterest(LocalDate.now());
+    }
+    public Transaction createTransaction(Money amount){
+        Transaction transaction= new Transaction();
+        transaction.setTransacionDate(LocalDate.now());
+        transaction.setTransacionTime(LocalTime.now());
+        transaction.setAmount(amount);
+        transaction.setBalance(new Money(this.balance.getAmount()));
+        transaction.setAccount(this);
+        System.out.println("balance actual" + this.balance);
+        this.balance.increaseAmount(amount.getAmount());
+        System.out.println("amount actual" + amount.getAmount());
+        return transaction;
+    }
+    public boolean minimumBalanceControl(){
+        if (this.balance.getAmount().compareTo(this.minimumBalance.getAmount())<0) {
+            Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
+            Transaction transaction = createTransaction(amount);
+            transaction.setDescription("PenaltyFee");
+            addTransaction(transaction);
+            return true;
+        }else{
+            return false;
         }
     }
-
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         switch (this.type){
             case STUDENTCHECKING:
@@ -279,7 +284,6 @@ public class Account implements AccountInterface {
         if (this.transactions == null){
             this.transactions = new ArrayList<>();
         }
-        transactions.add(transaction);
-        transaction.setAccount(this);
+        this.transactions.add(transaction);
     }
 }

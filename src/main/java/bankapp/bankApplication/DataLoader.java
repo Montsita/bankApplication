@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Component
 public class DataLoader  implements CommandLineRunner {
@@ -101,31 +102,25 @@ public class DataLoader  implements CommandLineRunner {
         Money money = new Money(new BigDecimal(20000));
         Account accountChk1 = new Account();
         accountChk1.setType(AccountType.CHECKING);
+        accountChk1.setCreationDate(LocalDate.now());
+        accountChk1.setCreationTime(LocalTime.now());
         accountChk1.setMainOwner(accountHolder1);
         accountChk1.setSecondaryOwner(accountHolder2);
         accountChk1.setBalance(money);
-        accountChk1.setCreationDate(LocalDate.now());
         accountChk1.setLastDateUpdatedInterest(accountChk1.getCreationDate());
         accountRepository.save(accountChk1);
 
-        Transaction transaction1 = new Transaction();
-        transaction1.setTransacionDate(LocalDate.now());
-        transaction1.setBalance(new Money(new BigDecimal(20000)));
-        transaction1.setAmount(new Money(new BigDecimal(-1000)));
-        transaction1.setAccount(accountChk1);
+        Transaction transaction1 =accountChk1.createTransaction(new Money(new BigDecimal(-1000)));// new Transaction();
         transactionRepository.save(transaction1);
 
-        //accountChk1.setBalance(new Money(new BigDecimal(19000)));
-        //accountRepository.save(accountChk1);
-
-        Transaction transaction2 = new Transaction();
-        transaction2.setTransacionDate(LocalDate.now());
-        transaction2.setBalance(new Money(new BigDecimal(19000)));
-        transaction2.setAmount(new Money(new BigDecimal(-20000)));
-        transaction2.setAccount(accountChk1);
+        Transaction transaction2 = accountChk1.createTransaction(new Money(new BigDecimal(-20000))) ;//new Transaction();
         transactionRepository.save(transaction2);
 
-        //accountChk1.setBalance(new Money(new BigDecimal(-1000)));
-        //accountRepository.save(accountChk1);
+        if (accountChk1.minimumBalanceControl()) {
+            transactionRepository.saveAll(accountChk1.getTransactions());
+        }
+        accountRepository.save(accountChk1);
+
+
     }
 }

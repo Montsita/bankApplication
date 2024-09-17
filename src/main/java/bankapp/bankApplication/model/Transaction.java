@@ -1,15 +1,16 @@
 package bankapp.bankApplication.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
-@NoArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,7 @@ public class Transaction {
     private Money balance;
 
     private LocalDate transacionDate;
+    private LocalTime transacionTime;
 
     @Embedded
     @AttributeOverrides({
@@ -34,8 +36,14 @@ public class Transaction {
     private Long originId;
     private Long destinyId;
     private String description;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name="account_id")
     private Account account;
+
+    public void Transacction(){
+        this.setTransacionDate(LocalDate.now());
+        this.setTransacionTime(LocalTime.now());
+    }
 }
