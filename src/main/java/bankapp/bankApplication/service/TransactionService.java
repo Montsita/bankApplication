@@ -26,6 +26,10 @@ public class TransactionService {
 
     public Optional<Transaction> getById(Long id){ return transactionRepository.findById(id); }
 
+    public List<Transaction> getByAccountId(Long accountId){
+        return transactionRepository.findByAccountId(accountId);
+    }
+
     public void delete(Long accountId) {
         transactionRepository.deleteByAccountId(accountId);
     }

@@ -24,8 +24,13 @@ public class TransactionController {
         Optional<Transaction> transaction = transactionService.getById(id);
         return transaction.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
-    //preguntar a Jarko
-    @DeleteMapping("/{account_id}")
+
+    @GetMapping("/account/{accountId}")
+    public List<Transaction> getByAccountId(@PathVariable Long accountId){
+        return transactionService.getByAccountId(accountId);
+    }
+
+    @DeleteMapping("/{accountId}")
     public ResponseEntity<Void> delete(@PathVariable Long accountId)  {
         transactionService.delete(accountId);
         return ResponseEntity.noContent().build();

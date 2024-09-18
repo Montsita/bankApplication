@@ -36,72 +36,37 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
-
     public Account create(Account account, String userName) throws UnauthorizedException {
-        // Verifica si el admin existe en el repositorio
-
-        Optional<UserRegistration> regOptional = userRegistrationService.getRegistrationByUserName(userName);
-
-        if (!regOptional.isPresent()) {
-            throw new AdminNotFoundException("User with userName " + userName + " not found");
-        }
-
-        UserRegistration reg = regOptional.get();
-
-        // Verifica si el tipo de usuario es ADMIN
-        if (reg.getType() != UserType.ADMIN) {
+        if (userRegistrationService.isAdmin(userName)) {
+            return accountRepository.save(account);
+        }else{
             throw new UnauthorizedException("Only ADMIN users can create accounts.");
         }
-
-        //if (!adminRepository.existsById(reg.getUser().getId())) {
-        //throw new AdminNotFoundException("Admin with userName " + reg.getUserName() + " not found");
-        //}
-
-        // Si el administrador existe, guarda y devuelve la cuenta
-        return accountRepository.save(account);
     }
 
-
     public Optional<Account> change(Account account, String userName) throws UnauthorizedException {
-        Optional<UserRegistration> regOptional = userRegistrationService.getRegistrationByUserName(userName);
-
-        if (regOptional.isEmpty()) {
-            throw new AdminNotFoundException("User with userName " + userName + " not found");
+        if (userRegistrationService.isAdmin(userName)) {
+            if (accountRepository.existsById(account.getId())) {
+                return Optional.of(accountRepository.save(account));
+            }
+            return Optional.empty();
+        }else{
+            throw new UnauthorizedException("Only ADMIN users can change accounts.");
         }
-
-        UserRegistration reg = regOptional.get();
-
-        if (reg.getType() != UserType.ADMIN) {
-            throw new UnauthorizedException("Only ADMIN users can create accounts.");
-        }
-
-        if (accountRepository.existsById(account.getId())) {
-            return Optional.of(accountRepository.save(account));
-        }
-
-        return Optional.empty();
     }
 
     public boolean delete(Long id, String userName) throws UnauthorizedException {
-        Optional<UserRegistration> regOptional = userRegistrationService.getRegistrationByUserName(userName);
-
-        if (regOptional.isEmpty()) {
-            throw new AdminNotFoundException("User with userName " + userName + " not found");
-        }
-
-        UserRegistration reg = regOptional.get();
-
-        if (reg.getType() != UserType.ADMIN) {
-            throw new UnauthorizedException("Only ADMIN users can create accounts.");
-        }
-
-        if(accountRepository.existsById(id)){
-            accountRepository.deleteById(id);
-            return true;
+        if (userRegistrationService.isAdmin(userName)) {
+            if(accountRepository.existsById(id)){
+                accountRepository.deleteById(id);
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            return false;
+            throw new UnauthorizedException("Only ADMIN users can delete accounts.");
         }
-
     }
+
 
 }

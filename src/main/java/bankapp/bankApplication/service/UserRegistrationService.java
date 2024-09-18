@@ -2,6 +2,8 @@ package bankapp.bankApplication.service;
 
 
 import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
+import bankapp.bankApplication.enums.UserType;
+import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.AccountHolder;
 import bankapp.bankApplication.model.UserRegistration;
@@ -25,4 +27,13 @@ public class UserRegistrationService {
         return userRegistrationRepository.findByUserName(userName);
     }
 
+    public boolean isAdmin(String userName)  throws UnauthorizedException {
+        Optional<UserRegistration> regOptional = getRegistrationByUserName(userName);
+        if (regOptional.isPresent()) {
+            if (regOptional.get().getType() == UserType.ADMIN) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

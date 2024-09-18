@@ -269,6 +269,7 @@ public class Account implements AccountInterface {
         BigDecimal b2 = new BigDecimal("40");
         this.penaltyFee = new Money(b2);
         this.setCreationDate(LocalDate.now());
+        this.setCreationTime(LocalTime.now());
         this.setLastDateUpdatedInterest(this.getCreationDate());
         setCreditLimit(this.creditLimit);
         setMinimumBalance(this.minimumBalance);
