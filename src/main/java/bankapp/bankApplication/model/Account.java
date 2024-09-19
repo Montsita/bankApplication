@@ -186,8 +186,6 @@ public class Account implements AccountInterface {
                     this.monthlyMaintenanceFee=monthlyMaintenanceFee;
                 }
                 break;
-            default:
-
         }
 
     }
@@ -215,9 +213,15 @@ public class Account implements AccountInterface {
         switch (this.type){
             case CREDITCARD:
                 BigDecimal valueCC=new BigDecimal("0.1");
-                if (interestRate.compareTo(valueCC)>0) {
+                if (interestRate == null){
+                    this.interestRate=valueCC;
+                }else if (interestRate.compareTo(valueCC)<0) {
+                    this.interestRate=valueCC;
+                }else {
                     this.interestRate=interestRate;
                 }
+
+
                 break;
             case SAVINGS:
                 BigDecimal valueMin=new BigDecimal("0.0025");
@@ -237,12 +241,16 @@ public class Account implements AccountInterface {
             case CREDITCARD:
                 BigDecimal minor=new BigDecimal("100");
                 BigDecimal major=new BigDecimal("100000");
-                if (creditLimit.getAmount().compareTo(minor)>=0 && creditLimit.getAmount().compareTo(major)<=0) {
+                if (creditLimit.getAmount().compareTo(minor)<0){
+                    this.creditLimit= new Money(minor);
+                } else if (creditLimit.getAmount().compareTo(major)>0){
+                    this.creditLimit = new Money(major);
+                }else{
                     this.creditLimit=creditLimit;
                 }
+
                 break;
             default:
-
         }
     }
 
