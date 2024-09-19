@@ -9,6 +9,7 @@ import bankapp.bankApplication.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +27,16 @@ public class TransactionService {
 
     public Optional<Transaction> getById(Long id){ return transactionRepository.findById(id); }
 
+    public List<Transaction> getByAccountId(Long accountId){
+        return transactionRepository.findByAccountId(accountId);
+    }
+
     public void delete(Long accountId) {
         transactionRepository.deleteByAccountId(accountId);
     }
 
+    public Transaction  getLastTransaccion(Long accountId){
+        return transactionRepository.findLastTransactionByAccountId(accountId);
+    }
 
 }
