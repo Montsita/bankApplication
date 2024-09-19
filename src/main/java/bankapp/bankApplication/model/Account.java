@@ -194,7 +194,7 @@ public class Account implements AccountInterface {
             case SAVINGS:
                 BigDecimal min=new BigDecimal("100");
                 BigDecimal max=new BigDecimal("1000");
-                if (minimumBalance.getAmount().compareTo(min)<=0 && minimumBalance.getAmount().compareTo(max)>=0) {
+                if (minimumBalance.getAmount().compareTo(min)>=0 && minimumBalance.getAmount().compareTo(max)<=0) {
                     this.minimumBalance=minimumBalance;
                 }
                 break;
