@@ -1,9 +1,11 @@
 package bankapp.bankApplication.controller;
 
+import bankapp.bankApplication.dto.AccountPasswordUpdateDTO;
 import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
 import bankapp.bankApplication.exception.AdminNotFoundException;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
+import bankapp.bankApplication.model.Transaction;
 import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +66,17 @@ public class AccountController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @PostMapping("/createMovement/{id}")
+    public Transaction createMovement(@PathVariable Long id, @RequestParam BigDecimal amount, String userName){
+        return accountService.createMovement(id,amount,userName);
+    }
+
+    @PostMapping("/createTransfer/{id}")
+    public Transaction createTransfer(@PathVariable Long id, @RequestParam BigDecimal amount, Long destinyId, String concept, String userName){
+        return accountService.createTransfer(id,amount,destinyId,concept,userName);
+    }
+
 
 }
 

@@ -35,4 +35,10 @@ public class TransactionController {
         transactionService.delete(accountId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/last/{accountId}")
+    public Transaction getLastTransaction(@PathVariable Long accountId){
+        return transactionService.getLastTransaccion(accountId);
+    }
+
 }

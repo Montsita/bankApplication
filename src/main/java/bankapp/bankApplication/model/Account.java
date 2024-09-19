@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class Account implements AccountInterface {
     private LocalDate creationDate;
     private LocalTime creationTime;
     private LocalDate lastDateUpdatedInterest;
+    private LocalTime lastTimeUpdatedInterest;
+    private LocalDate nextDateUpdateInterest;
     //changes
 
     @Embedded
@@ -72,10 +75,8 @@ public class Account implements AccountInterface {
     })
     private Money monthlyMaintenanceFee;
 
-    //atributs de la credit card, recordar modificar el setter de la creditCard perque no te tases igual que la de estudiants
-    // el setMonthlyMaintenanceFee i el minimumBalance
-
-    private Float interestRate; // en caso creditcard Jarko
+    @Column(precision = 20 , scale = 17)
+    private BigDecimal interestRate;
 
     @Embedded
     @AttributeOverrides({
@@ -92,21 +93,20 @@ public class Account implements AccountInterface {
     private List<Transaction> transactions;
 
     public void interestRateApply(){
-        BigDecimal i =new BigDecimal(this.interestRate);
+        BigDecimal i =this.interestRate;
         BigDecimal b = this.getCreditLimit().decreaseAmount(this.balance.getAmount());
         BigDecimal r=b.multiply(i);
-        LocalDate date =null;
         switch (this.type){
             case CREDITCARD:
-                date =this.lastDateUpdatedInterest.plusDays(30);
-                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                LocalDate dateCard =this.lastDateUpdatedInterest.plusDays(30);
+                if (dateCard.isEqual(LocalDate.now()) || dateCard.isBefore(LocalDate.now())){
                     r=new BigDecimal(0).subtract(r);
                     interestRateApply(r);
                 }
                 break;
             case SAVINGS:
-                date =this.lastDateUpdatedInterest.plusDays(365);
-                if (date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now())){
+                LocalDate dateSavings=this.lastDateUpdatedInterest.plusDays(365);
+                if (dateSavings.isEqual(LocalDate.now()) || dateSavings.isBefore(LocalDate.now())){
                         interestRateApply(r);
                 }
                 break;
@@ -124,6 +124,39 @@ public class Account implements AccountInterface {
         }
         this.setLastDateUpdatedInterest(LocalDate.now());
     }
+
+    public void interestRateApplyAA(){
+        LocalDate today=LocalDate.now();
+        if (today.isEqual(this.nextDateUpdateInterest) || today.isAfter(this.nextDateUpdateInterest) ){
+            BigDecimal monthlyRate = this.getInterestRate().divide(new BigDecimal("12"),6, RoundingMode.DOWN);
+            BigDecimal base = null;
+            int nextDays=0;
+            switch (this.type){
+                case CREDITCARD:
+                    monthlyRate=monthlyRate.multiply(new BigDecimal(-1));
+                    base=this.creditLimit.getAmount();
+                    base=base.subtract(this.balance.getAmount());
+                    nextDays=30;
+                    if (base.compareTo(BigDecimal.ZERO)==0){
+                        return;
+                    }
+                    break;
+                case SAVINGS:
+                    base=this.balance.getAmount();
+                    nextDays=365;
+                    break;
+                default:
+                    return;
+            }
+            BigDecimal interest = base.multiply(monthlyRate).setScale(2, RoundingMode.DOWN);
+            this.balance.increaseAmount(interest);
+            System.out.println("interes: " + interest   + " %=" + monthlyRate + " monto=" + balance.getAmount());
+            this.setLastDateUpdatedInterest(today);
+            this.setLastTimeUpdatedInterest(LocalTime.now());
+            this.setNextDateUpdateInterest(this.lastDateUpdatedInterest.plusDays(nextDays));
+        }
+    }
+
     public Transaction createTransaction(Money amount){
         Transaction transaction= new Transaction();
         transaction.setTransactionDate(LocalDate.now());
@@ -139,7 +172,7 @@ public class Account implements AccountInterface {
             Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
             Transaction transaction = createTransaction(amount);
             transaction.setDescription("PenaltyFee");
-            addTransaction(transaction);
+           // addTransaction(transaction);
             return transaction;
         }else{
             return null;
@@ -147,23 +180,10 @@ public class Account implements AccountInterface {
     }
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         switch (this.type){
-            case STUDENTCHECKING:
-                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
-                break;
-
-            case CREDITCARD:
-                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
-                break;
-
-            case SAVINGS:
-                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
-                break;
-
             case CHECKING:
-                this.monthlyMaintenanceFee.decreaseAmount(monthlyMaintenanceFee.getAmount());
                 BigDecimal valor = new BigDecimal("12");
-                if (monthlyMaintenanceFee.getAmount().compareTo(valor)!=0)  {
-                    this.monthlyMaintenanceFee.increaseAmount(valor);
+                if (monthlyMaintenanceFee.getAmount().compareTo(valor)>0)  {
+                    this.monthlyMaintenanceFee=monthlyMaintenanceFee;
                 }
                 break;
             default:
@@ -173,29 +193,17 @@ public class Account implements AccountInterface {
     }
     public void setMinimumBalance(Money minimumBalance) {
         switch (this.type){
-            case STUDENTCHECKING:
-                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
-                break;
-            case CREDITCARD:
-                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
-                break;
             case SAVINGS:
-                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
-                BigDecimal minor=new BigDecimal("100");
-                BigDecimal major=new BigDecimal("1000");
-                if (minimumBalance.getAmount().compareTo(minor)<=0 && minimumBalance.getAmount().compareTo(major)>=0) {
-                    this.minimumBalance.increaseAmount( minimumBalance.getAmount());
-                }else{
-                    this.minimumBalance.increaseAmount(minor);
+                BigDecimal min=new BigDecimal("100");
+                BigDecimal max=new BigDecimal("1000");
+                if (minimumBalance.getAmount().compareTo(min)<=0 && minimumBalance.getAmount().compareTo(max)>=0) {
+                    this.minimumBalance=minimumBalance;
                 }
                 break;
             case CHECKING:
-                this.minimumBalance.decreaseAmount(this.minimumBalance.getAmount());
                 BigDecimal valor=new BigDecimal("250");
                 if (minimumBalance.getAmount().compareTo(valor)>=0) {
-                    this.minimumBalance.increaseAmount(minimumBalance.getAmount());
-                }else{
-                    this.minimumBalance.increaseAmount(valor);
+                    this.minimumBalance=minimumBalance;
                 }
                 break;
             default:
@@ -203,27 +211,20 @@ public class Account implements AccountInterface {
         }
     }
 
-    public void setInterestRate(Float interestRate) {
+    public void setInterestRate(BigDecimal interestRate) {
         switch (this.type){
-            case STUDENTCHECKING:
-                this.interestRate=0F;
-                break;
             case CREDITCARD:
-                if (interestRate>=0.1F) {
+                BigDecimal valueCC=new BigDecimal("0.1");
+                if (interestRate.compareTo(valueCC)>0) {
                     this.interestRate=interestRate;
-                }else{
-                    this.interestRate=0.1F;
                 }
                 break;
             case SAVINGS:
-                if (interestRate>=0.0025F && interestRate<=0.5F) {
+                BigDecimal valueMin=new BigDecimal("0.0025");
+                BigDecimal valueMax=new BigDecimal("0.5");
+                if (interestRate.compareTo(valueMin)>=0 && interestRate.compareTo(valueMax)<=0) {
                     this.interestRate=interestRate;
-                }else{
-                    this.interestRate=0.0025F;
                 }
-                break;
-            case CHECKING:
-                this.interestRate=0.0F;
                 break;
             default:
 
@@ -233,51 +234,66 @@ public class Account implements AccountInterface {
 
     public void setCreditLimit(Money creditLimit) {
         switch (this.type){
-            case STUDENTCHECKING:
-                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
-                break;
             case CREDITCARD:
                 BigDecimal minor=new BigDecimal("100");
                 BigDecimal major=new BigDecimal("100000");
                 if (creditLimit.getAmount().compareTo(minor)>=0 && creditLimit.getAmount().compareTo(major)<=0) {
-                    this.creditLimit.increaseAmount(creditLimit.getAmount());
-                }else{
-                    this.creditLimit.increaseAmount(minor);
+                    this.creditLimit=creditLimit;
                 }
                 break;
-            case SAVINGS:
-                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
-                break;
-            case CHECKING:
-                this.creditLimit.decreaseAmount(this.creditLimit.getAmount());
-                break;
             default:
+
         }
     }
 
     public void setType(AccountType type) {
         if(this.type != null) return;
-        // Inicializamos la cuenta a los valores por defecto
         this.type = type;
 
-        BigDecimal b1 =BigDecimal.ZERO;
-        this.creditLimit = new Money(b1);
-        this.minimumBalance = new Money(b1);
-        this.monthlyMaintenanceFee = new Money(b1);
         this.accountStatus=AccountStatus.ACTIVE;
+        this.creationDate=LocalDate.now();
+        this.creationTime=LocalTime.now();
+        this.lastDateUpdatedInterest=this.getCreationDate();
+        this.penaltyFee = new Money(new BigDecimal("40"));
 
-        BigDecimal b2 = new BigDecimal("40");
-        this.penaltyFee = new Money(b2);
-        this.setCreationDate(LocalDate.now());
-        this.setCreationTime(LocalTime.now());
-        this.setLastDateUpdatedInterest(this.getCreationDate());
-        setCreditLimit(this.creditLimit);
-        setMinimumBalance(this.minimumBalance);
-        setMonthlyMaintenanceFee(this.monthlyMaintenanceFee);
-        setInterestRate(0F);
+        initializeDefaultValue(this.type);
+    }
+    private void initializeDefaultValue(AccountType accountType){
+        switch (this.type){
+            case CREDITCARD:
+                this.monthlyMaintenanceFee=new Money(new BigDecimal("0"));
+                this.minimumBalance= new Money(new BigDecimal("0"));
+                this.interestRate=new BigDecimal("0.1");
+                this.creditLimit=new Money(new BigDecimal("100"));
+                this.nextDateUpdateInterest=this.getCreationDate().plusDays(1);
+                this.balance=this.creditLimit;
+                break;
+            case SAVINGS:
+                this.monthlyMaintenanceFee=new Money(new BigDecimal("0"));
+                this.minimumBalance=new Money(new BigDecimal("100"));
+                this.interestRate=new BigDecimal("0.0025");
+                this.creditLimit=new Money(new BigDecimal("0"));
+                this.nextDateUpdateInterest=this.getCreationDate().plusYears(1);
+                break;
+            case CHECKING:
+                this.monthlyMaintenanceFee=new Money(new BigDecimal("12"));
+                this.minimumBalance=new Money(new BigDecimal("250"));
+                this.interestRate=new BigDecimal("0");
+                this.creditLimit=new Money(new BigDecimal("0"));
+                this.nextDateUpdateInterest=this.getCreationDate();
+                break;
+            case STUDENTCHECKING:
+                this.monthlyMaintenanceFee=new Money(new BigDecimal("0"));
+                this.minimumBalance=new Money(new BigDecimal("0"));
+                this.interestRate=new BigDecimal("0");
+                this.creditLimit=new Money(new BigDecimal("0"));
+                this.nextDateUpdateInterest=this.getCreationDate();
+                break;
+            default:
+
+        }
 
     }
-
 
     @Override
     public void addTransaction(Transaction transaction) {
@@ -286,4 +302,5 @@ public class Account implements AccountInterface {
         }
         this.transactions.add(transaction);
     }
+
 }

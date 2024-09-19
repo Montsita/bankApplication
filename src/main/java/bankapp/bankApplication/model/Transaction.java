@@ -37,9 +37,26 @@ public class Transaction {
     private Long destinyId;
 
     private String description;
+    private String concept;
 
     @JsonBackReference
     @ManyToOne()
     @JoinColumn(name="account_id")
     private Account account;
+
+    @Override
+    public String toString() {
+        System.out.println("Imprime transacc");
+        return "Transaction{" +
+                "id=" + id +
+                ", balance=" + balance +
+                ", transactionDate=" + transactionDate +
+                ", transactionTime=" + transactionTime +
+                ", amount=" + amount +
+                ", originId=" + originId +
+                ", destinyId=" + destinyId +
+                ", description='" + description + '\'' +
+                ", account=" + account.getId() +
+                '}';
+    }
 }

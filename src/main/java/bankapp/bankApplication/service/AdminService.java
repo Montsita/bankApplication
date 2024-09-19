@@ -17,5 +17,12 @@ public class AdminService {
 
     public List<Admin> getAll() { return adminRepository.findAll(); }
 
-    public Optional<Admin> getById(Long id){ return adminRepository.findById(id); }
+    public Optional<Admin> getById(Long id){
+        Optional<Admin> a = adminRepository.findById(id);
+        if (a.isPresent()){
+            System.out.println("nombre="+ a.get().getName());
+        }
+
+        return adminRepository.findById(id);
+    }
 }

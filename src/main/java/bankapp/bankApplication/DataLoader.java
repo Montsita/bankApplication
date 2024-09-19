@@ -119,11 +119,11 @@ public class DataLoader  implements CommandLineRunner {
 
         Transaction transactionPenalty=accountChk1.minimumBalanceControl();
         if (transactionPenalty !=null){
+            accountChk1.addTransaction(transactionPenalty);
             transactionRepository.save(transactionPenalty);
         }
         accountRepository.save(accountChk1);
 
-        //push
 
 
 
