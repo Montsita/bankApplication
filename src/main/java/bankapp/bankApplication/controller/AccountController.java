@@ -3,6 +3,7 @@ package bankapp.bankApplication.controller;
 import bankapp.bankApplication.dto.AccountPasswordUpdateDTO;
 import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
 import bankapp.bankApplication.exception.AdminNotFoundException;
+import bankapp.bankApplication.exception.PasswordNotAvailable;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.Transaction;
@@ -11,6 +12,7 @@ import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -55,7 +57,7 @@ public class AccountController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
         try {
             if (accountService.delete(id, userName)) {
@@ -77,7 +79,18 @@ public class AccountController {
         return accountService.createTransfer(id,amount,destinyId,concept,userName);
     }
 
-
+    @PatchMapping("/changePassword/{id}")
+    public ResponseEntity<Void> changePassword(@PathVariable Long id, @Validated @RequestBody AccountPasswordUpdateDTO account){
+        try {
+            if (accountService.changePassword(id,account)) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (PasswordNotAvailable e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }
 
 

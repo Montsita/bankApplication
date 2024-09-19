@@ -4,8 +4,10 @@ import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Transaction;
 import bankapp.bankApplication.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +31,21 @@ public class TransactionController {
     public List<Transaction> getByAccountId(@PathVariable Long accountId){
         return transactionService.getByAccountId(accountId);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
+        try {
+            if (transactionService.delete(id, userName)) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.notFound().build();
+        }catch (UnauthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 
-    @DeleteMapping("/{accountId}")
+    @DeleteMapping("/account/{accountId}")
     public ResponseEntity<Void> delete(@PathVariable Long accountId)  {
-        transactionService.delete(accountId);
+        transactionService.deleteByAccountId(accountId);
         return ResponseEntity.noContent().build();
     }
 

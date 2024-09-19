@@ -1,5 +1,6 @@
 package bankapp.bankApplication.service;
 import bankapp.bankApplication.dto.AccountPasswordUpdateDTO;
+import bankapp.bankApplication.exception.PasswordNotAvailable;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.Money;
@@ -51,9 +52,7 @@ public class AccountService {
 
     public Optional<Account> change(Account account, String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
-            System.out.println("IS ADMIN");
             if (accountRepository.existsById(account.getId())) {
-                System.out.println("GUARDANDO");
                 return Optional.of(accountRepository.save(account));
             }
             return Optional.empty();
@@ -151,19 +150,21 @@ public class AccountService {
         return null;
     }
 
-    public boolean changePassword(Long id , AccountPasswordUpdateDTO accountPasswordUpdateDTO){
+    public boolean changePassword(Long id , AccountPasswordUpdateDTO accountPasswordUpdateDTO) throws PasswordNotAvailable {
         if (accountRepository.existsById(id)) {
             Account account =accountRepository.getById(id);
-            if (account.getSecretKey().equals((accountPasswordUpdateDTO.getOldPassword()))){
+            if (account.getSecretKey().equals((accountPasswordUpdateDTO.getOldPassword()))) {
                 account.setSecretKey(accountPasswordUpdateDTO.getNewPassword());
                 accountRepository.save(account);
                 return true;
+            }else{
+                throw new PasswordNotAvailable("The password is not available");
             }
         }
         return false;
     }
 
-    public Boolean isAccountFromUserId(Long accountId, Long userId){
+    public Boolean isAccountFromUserId(Long accountId, Long userId) {
         if (accountRepository.existsById(accountId)){
             Account account=accountRepository.getById(accountId);
             boolean b1 = account.getMainOwner().getId().equals(userId) ;
