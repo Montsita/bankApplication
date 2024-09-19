@@ -186,8 +186,6 @@ public class Account implements AccountInterface {
                     this.monthlyMaintenanceFee=monthlyMaintenanceFee;
                 }
                 break;
-            default:
-
         }
 
     }
@@ -196,10 +194,8 @@ public class Account implements AccountInterface {
             case SAVINGS:
                 BigDecimal min=new BigDecimal("100");
                 BigDecimal max=new BigDecimal("1000");
-                System.out.println("ENTRA EN MINIMUMBALANCE");
-                if (minimumBalance.getAmount().compareTo(min)>=0 && minimumBalance.getAmount().compareTo(max)<=0) {
+                if (minimumBalance.getAmount().compareTo(min)<=0 && minimumBalance.getAmount().compareTo(max)>=0) {
                     this.minimumBalance=minimumBalance;
-                    System.out.println("CAMBIA A " + minimumBalance);
                 }
                 break;
             case CHECKING:
@@ -217,9 +213,15 @@ public class Account implements AccountInterface {
         switch (this.type){
             case CREDITCARD:
                 BigDecimal valueCC=new BigDecimal("0.1");
-                if (interestRate.compareTo(valueCC)>0) {
+                if (interestRate == null){
+                    this.interestRate=valueCC;
+                }else if (interestRate.compareTo(valueCC)<0) {
+                    this.interestRate=valueCC;
+                }else {
                     this.interestRate=interestRate;
                 }
+
+
                 break;
             case SAVINGS:
                 BigDecimal valueMin=new BigDecimal("0.0025");
@@ -237,14 +239,18 @@ public class Account implements AccountInterface {
     public void setCreditLimit(Money creditLimit) {
         switch (this.type){
             case CREDITCARD:
-                BigDecimal min=new BigDecimal("100");
-                BigDecimal max=new BigDecimal("100000");
-                if (creditLimit.getAmount().compareTo(min)>=0 && creditLimit.getAmount().compareTo(max)<=0) {
+                BigDecimal minor=new BigDecimal("100");
+                BigDecimal major=new BigDecimal("100000");
+                if (creditLimit.getAmount().compareTo(minor)<0){
+                    this.creditLimit= new Money(minor);
+                } else if (creditLimit.getAmount().compareTo(major)>0){
+                    this.creditLimit = new Money(major);
+                }else{
                     this.creditLimit=creditLimit;
                 }
+
                 break;
             default:
-
         }
     }
 
@@ -257,7 +263,7 @@ public class Account implements AccountInterface {
         this.creationTime=LocalTime.now();
         this.lastDateUpdatedInterest=this.getCreationDate();
         this.penaltyFee = new Money(new BigDecimal("40"));
-        this.setSecretKey("auto");
+
         initializeDefaultValue(this.type);
     }
     private void initializeDefaultValue(AccountType accountType){
