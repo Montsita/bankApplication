@@ -14,6 +14,7 @@ public abstract class Operation {
          BigDecimal rate=new BigDecimal(BigInteger.ZERO);
          BigDecimal aux =new BigDecimal(BigInteger.ZERO);
          LocalDate nextUpdate=null;
+         BigDecimal tmp=new BigDecimal(0);
          ResInterestCalculation res = null;
          if (initialDate.isBefore(finalDate)|| initialDate.isEqual(finalDate)){
              switch (type){
@@ -21,7 +22,9 @@ public abstract class Operation {
                      long days = ChronoUnit.DAYS.between(initialDate, finalDate)+1;
                      rate=interestRate.divide(new BigDecimal("365"),6, RoundingMode.DOWN);
                      for (int i = 1; i <= days; i++) {
-                         calculation = calculation.add( amount.multiply(rate));
+                         tmp=amount.multiply(rate);
+                         calculation = calculation.add(tmp);
+                         amount=amount.add(tmp);
                      }
                      calculation =calculation.setScale(6, RoundingMode.DOWN);
                      res= new ResInterestCalculation(calculation, initialDate.plusDays(days));
@@ -31,8 +34,9 @@ public abstract class Operation {
                      long months = ChronoUnit.MONTHS.between(initialDate, finalDate);
                      rate=interestRate.divide(new BigDecimal("12"),6, RoundingMode.DOWN);
                      for (int i = 1; i <= months; i++) {
-                         calculation = calculation.add( amount.multiply(rate));
-
+                         tmp=amount.multiply(rate);
+                         calculation = calculation.add(tmp);
+                         amount=amount.add(tmp);
                      }
                      calculation =calculation.setScale(6, RoundingMode.DOWN);
                      res= new ResInterestCalculation(calculation, initialDate.plusMonths(months));
@@ -42,7 +46,9 @@ public abstract class Operation {
                      long years = ChronoUnit.YEARS.between(initialDate, finalDate);
                      rate=interestRate;
                      for (int i = 1; i <= years; i++) {
-                         calculation = calculation.add( amount.multiply(rate));
+                         tmp=amount.multiply(rate);
+                         calculation = calculation.add(tmp);
+                         amount=amount.add(tmp);
                      }
                      calculation =calculation.setScale(6, RoundingMode.DOWN);
                      res= new ResInterestCalculation(calculation, initialDate.plusMonths(years));

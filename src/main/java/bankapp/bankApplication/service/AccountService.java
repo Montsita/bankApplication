@@ -60,7 +60,6 @@ public class AccountService {
                 transactionRepository.save(transaction);
                 acc.addTransaction(transaction);
                 acc.setNextDateUpdateInterest(res.getNextDateCalculation());
-                System.out.println(res.getNextDateCalculation());
                 accountRepository.save(account.get());
             }
             //account.get().interestRateApplyAA();
