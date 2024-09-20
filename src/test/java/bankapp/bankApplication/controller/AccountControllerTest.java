@@ -60,14 +60,13 @@ class AccountControllerTest {
 
 
     private Money bg;
-    private Money pf;
-    private Account account1;
-    private Account account2;
+    private Account accountCreditCard;
+    private Account accountChecking;
+    private Account accountSavings;
 
     @BeforeEach
     public void setUp() {
         bg = new Money(new BigDecimal(2000));
-        pf = new Money(new BigDecimal(40));
 
         Address adress1 = new Address();
         adress1.setCity("Madrid");
@@ -86,19 +85,26 @@ class AccountControllerTest {
         accountHolderRepository.save(accountHolder1);
 
 
-        account1 = new Account();
-        account1.setType(AccountType.CHECKING);
-        account1.setMainOwner(accountHolder1);
-        account1.setBalance(bg);
-        account1.setCreationDate(LocalDate.now());
-        //accountRepository.save(account1);
+        accountChecking = new Account();
+        accountChecking.setType(AccountType.CHECKING);
+        accountChecking.setMainOwner(accountHolder1);
+        accountChecking.setBalance(bg);
+        accountChecking.setCreationDate(LocalDate.now());
+        accountRepository.save(accountChecking);
 
-        account2 = new Account();
-        account2.setType(AccountType.CREDITCARD);
-        account2.setMainOwner(accountHolder1);
-        account2.setBalance(bg);
-        account2.setCreationDate(LocalDate.now());
-        accountRepository.save(account2);
+        accountCreditCard = new Account();
+        accountCreditCard.setType(AccountType.CREDITCARD);
+        accountCreditCard.setMainOwner(accountHolder1);
+        accountCreditCard.setBalance(bg);
+        accountCreditCard.setCreationDate(LocalDate.now());
+        accountRepository.save(accountCreditCard);
+
+        accountSavings = new Account();
+        accountSavings.setType(AccountType.SAVINGS);
+        accountSavings.setMainOwner(accountHolder1);
+        accountSavings.setBalance(bg);
+        accountSavings.setCreationDate(LocalDate.now());
+        accountRepository.save(accountSavings);
 
         Admin admin1= new Admin() ;
         admin1.setName("Montse");
@@ -115,7 +121,7 @@ class AccountControllerTest {
 
     @Test
     public void testGetAllAccounts() throws Exception{
-        List<Account> accounts = Arrays.asList(account1, account2);
+        List<Account> accounts = Arrays.asList(accountChecking, accountCreditCard);
 
         when(accountService.getAll()).thenReturn(accounts);
 
@@ -130,7 +136,7 @@ class AccountControllerTest {
     public void testGetAccountById() throws Exception{
         Long accountId = 1L;
 
-        when(accountService.getById(accountId)).thenReturn(Optional.of(account1));
+        when(accountService.getById(accountId)).thenReturn(Optional.of(accountChecking));
 
         mockMvc.perform(get("/account/{id}", accountId)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -180,60 +186,92 @@ class AccountControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-
-    //verificar que solo el admin puede borrar, crear y modificar
-    //admin
-    //valors predeterminats
-
     @Test
     public void testSetCreditLimitForCreditCard() {
 
         Money validLimit = new Money(new BigDecimal("5000"));
-        account2.setCreditLimit(validLimit);
-        assertEquals(validLimit.getAmount(), account2.getCreditLimit().getAmount());
+        accountCreditCard.setCreditLimit(validLimit);
+        assertEquals(validLimit.getAmount(), accountCreditCard.getCreditLimit().getAmount());
 
 
         Money invalidLimitLow = new Money(new BigDecimal("50"));
-        account2.setCreditLimit(invalidLimitLow);
-        assertEquals(new BigDecimal("100.00"), account2.getCreditLimit().getAmount());  // valor mínimo permitido
+        accountCreditCard.setCreditLimit(invalidLimitLow);
+        assertEquals(new BigDecimal("100.00"), accountCreditCard.getCreditLimit().getAmount());  // valor mínimo permitido
 
 
         Money invalidLimitHigh = new Money(new BigDecimal("150000"));
-        account2.setCreditLimit(invalidLimitHigh);
-        assertEquals(new BigDecimal("100000.00"), account2.getCreditLimit().getAmount());  // valor mínimo por defecto
+        accountCreditCard.setCreditLimit(invalidLimitHigh);
+        assertEquals(new BigDecimal("100000.00"), accountCreditCard.getCreditLimit().getAmount());  // valor mínimo por defecto
     }
 
     @Test
     public void testSetInterestRateForCreditCard() {
 
-        // Caso con tasa de interés válida
         Money validLimit = new Money(new BigDecimal("0.15"));
-        account2.setInterestRate(validLimit.getAmount());
-        assertEquals(new BigDecimal("0.15"), account2.getInterestRate());
+        accountCreditCard.setInterestRate(validLimit.getAmount());
+        assertEquals(new BigDecimal("0.15"), accountCreditCard.getInterestRate());
 
-        // Caso con tasa de interés inferior al mínimo
         Money invalidLimitLow = new Money(new BigDecimal("0.05"));
-        account2.setInterestRate(invalidLimitLow.getAmount());
-        assertEquals(new BigDecimal("0.1"), account2.getInterestRate());
+        accountCreditCard.setInterestRate(invalidLimitLow.getAmount());
+        assertEquals(new BigDecimal("0.1"), accountCreditCard.getInterestRate());
 
-        // Caso con tasa de interés nula o no válida
-        account2.setInterestRate(null);
-        assertEquals(new BigDecimal("0.1"), account2.getInterestRate());  // Valor por defecto
+        accountCreditCard.setInterestRate(null);
+        assertEquals(new BigDecimal("0.1"), accountCreditCard.getInterestRate());  // Valor por defecto
     }
 
-    //VOY POR AQUI
-
     @Test
-    public void testSetMonthlyMaintenanceFee() {
-        account1.setType(AccountType.CHECKING);
+    public void testSetMonthlyMaintenanceFeeChecking() {
 
         Money validLimit = new Money(new BigDecimal(15));
-        account1.setMonthlyMaintenanceFee(validLimit);
-        assertEquals(validLimit.getAmount(), account1.getMonthlyMaintenanceFee().getAmount());
+        accountChecking.setMonthlyMaintenanceFee(validLimit);
+        assertEquals(validLimit.getAmount(), accountChecking.getMonthlyMaintenanceFee().getAmount());
 
 
-        Money invalidLimit = new Money(new BigDecimal(15));
-        account1.setMonthlyMaintenanceFee(validLimit);
-        assertEquals(validLimit.getAmount(), account1.getMonthlyMaintenanceFee().getAmount());
+        Money invalidLimitLow = new Money(new BigDecimal(10));
+        accountChecking.setMonthlyMaintenanceFee(invalidLimitLow);
+        assertEquals(new BigDecimal("12.00"), accountChecking.getMonthlyMaintenanceFee().getAmount());
+    }
+
+    @Test
+    public void testSetMinimumBalanceChecking() {
+
+        Money validLimit = new Money(new BigDecimal(500));
+        accountChecking.setMinimumBalance(validLimit);
+        assertEquals(validLimit.getAmount(), accountChecking.getMinimumBalance().getAmount());
+
+
+        Money invalidLimitLow = new Money(new BigDecimal(10));
+        accountChecking.setMinimumBalance(invalidLimitLow);
+        assertEquals(new BigDecimal("250.00"), accountChecking.getMinimumBalance().getAmount());
+    }
+
+    @Test
+    public void testSetMinimumBalanceSavings() {
+
+        Money validLimit = new Money(new BigDecimal(500));
+        accountSavings.setMinimumBalance(validLimit);
+        assertEquals(validLimit.getAmount(), accountSavings.getMinimumBalance().getAmount());
+
+
+        Money invalidLimitLow = new Money(new BigDecimal(10));
+        accountSavings.setMinimumBalance(invalidLimitLow);
+        assertEquals(new BigDecimal("100.00"), accountSavings.getMinimumBalance().getAmount());
+    }
+
+    @Test
+    public void testSetInterestRateSavings() {
+
+        BigDecimal validLimit = new BigDecimal(0.4);
+        accountSavings.setInterestRate(validLimit);
+        assertEquals(validLimit, accountSavings.getInterestRate());
+
+
+        BigDecimal invalidLimitLow = new BigDecimal(0.001);
+        accountSavings.setInterestRate(invalidLimitLow);
+        assertEquals(new BigDecimal("0.0025"), accountSavings.getInterestRate());
+
+        BigDecimal invalidLimitMax = new BigDecimal(1);
+        accountSavings.setInterestRate(invalidLimitMax);
+        assertEquals(new BigDecimal("0.5"), accountSavings.getInterestRate());
     }
 }
