@@ -184,6 +184,8 @@ public class Account implements AccountInterface {
                 BigDecimal valor = new BigDecimal("12");
                 if (monthlyMaintenanceFee.getAmount().compareTo(valor)>0)  {
                     this.monthlyMaintenanceFee=monthlyMaintenanceFee;
+                }else {
+                    this.monthlyMaintenanceFee=new Money(valor);
                 }
                 break;
         }
@@ -194,14 +196,21 @@ public class Account implements AccountInterface {
             case SAVINGS:
                 BigDecimal min=new BigDecimal("100");
                 BigDecimal max=new BigDecimal("1000");
-                if (minimumBalance.getAmount().compareTo(min)<=0 && minimumBalance.getAmount().compareTo(max)>=0) {
+                if (minimumBalance.getAmount().compareTo(min)<0){
+                    this.minimumBalance= new Money(min);
+                } else if (minimumBalance.getAmount().compareTo(max)>0){
+                    this.minimumBalance = new Money(max);
+                }else{
                     this.minimumBalance=minimumBalance;
                 }
                 break;
+
             case CHECKING:
                 BigDecimal valor=new BigDecimal("250");
                 if (minimumBalance.getAmount().compareTo(valor)>=0) {
                     this.minimumBalance=minimumBalance;
+                } else if (minimumBalance.getAmount().compareTo(valor)<=0){
+                    this.minimumBalance=new Money(valor);
                 }
                 break;
             default:
@@ -220,18 +229,20 @@ public class Account implements AccountInterface {
                 }else {
                     this.interestRate=interestRate;
                 }
-
-
                 break;
+
             case SAVINGS:
-                BigDecimal valueMin=new BigDecimal("0.0025");
-                BigDecimal valueMax=new BigDecimal("0.5");
-                if (interestRate.compareTo(valueMin)>=0 && interestRate.compareTo(valueMax)<=0) {
+                BigDecimal min=new BigDecimal("0.0025");
+                BigDecimal max=new BigDecimal("0.5");
+                if (interestRate.compareTo(min)<0){
+                    this.interestRate= min;
+                } else if (interestRate.compareTo(max)>0){
+                    this.interestRate = max;
+                }else{
                     this.interestRate=interestRate;
                 }
                 break;
             default:
-
         }
     }
 
