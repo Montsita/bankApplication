@@ -48,10 +48,10 @@ public class AccountService {
                 BigDecimal interestCreditCard=BigDecimal.ZERO.subtract(acc.getInterestRate());
                 BigDecimal amount=acc.getCreditLimit().getAmount().subtract(acc.getBalance().getAmount());
                 res= Operation.interestCalculation(acc.getNextDateUpdateInterest(),
-                        LocalDate.now(),amount,interestCreditCard, InterestType.MONTHLY);
+                        LocalDate.now(),amount,interestCreditCard, InterestType.DIARY);
             }else{
                  res= Operation.interestCalculation(acc.getNextDateUpdateInterest(),
-                         LocalDate.now(),acc.getBalance().getAmount(),acc.getInterestRate(), InterestType.MONTHLY);
+                         LocalDate.now(),acc.getBalance().getAmount(),acc.getInterestRate(), InterestType.DIARY);
             }
 
             if (res!=null && res.getCalculation().compareTo(BigDecimal.ZERO)!=0){
@@ -60,6 +60,7 @@ public class AccountService {
                 transactionRepository.save(transaction);
                 acc.addTransaction(transaction);
                 acc.setNextDateUpdateInterest(res.getNextDateCalculation());
+                System.out.println(res.getNextDateCalculation());
                 accountRepository.save(account.get());
             }
             //account.get().interestRateApplyAA();
