@@ -1,9 +1,7 @@
 package bankapp.bankApplication.service;
 
 import bankapp.bankApplication.exception.UnauthorizedException;
-import bankapp.bankApplication.model.AccountHolder;
 import bankapp.bankApplication.model.Address;
-import bankapp.bankApplication.repository.AccountHolderRepository;
 import bankapp.bankApplication.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +23,14 @@ public class AddressService {
         return addressRepository.findById(id);
     }
 
-    public Address create(Address address  , String userName) throws UnauthorizedException {
+    public Address create(Address address, String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
             return addressRepository.save(address);
         }else{
             throw new UnauthorizedException("Only ADMIN users can create address.");
         }
     }
-    public Optional<Address> change(Address address  , String userName) throws UnauthorizedException {
+    public Optional<Address> change(Address address, String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
             if (addressRepository.existsById(address.getId())) {
                 return Optional.of(addressRepository.save(address));

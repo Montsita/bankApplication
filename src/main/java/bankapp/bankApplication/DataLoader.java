@@ -4,6 +4,9 @@ import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.enums.UserType;
 import bankapp.bankApplication.model.*;
 
+import bankapp.bankApplication.model.Account;
+import bankapp.bankApplication.model.AccountHolder;
+import bankapp.bankApplication.model.Admin;
 import bankapp.bankApplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

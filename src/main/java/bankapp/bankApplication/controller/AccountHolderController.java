@@ -1,7 +1,6 @@
 package bankapp.bankApplication.controller;
 
 import bankapp.bankApplication.exception.UnauthorizedException;
-import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.AccountHolder;
 import bankapp.bankApplication.service.AccountHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,9 @@ public class AccountHolderController {
     }
 
     @PostMapping("/create")
-    public AccountHolder create(@RequestBody AccountHolder accountHolder, @RequestParam String userName) {
+    public AccountHolder create(@RequestBody AccountHolder accountHolder, @RequestParam String userRegistrationUserName, @RequestParam String userName) {
         try {
-            return accountHolderService.create(accountHolder, userName);
+            return accountHolderService.create(accountHolder,userRegistrationUserName, userName);
         } catch (UnauthorizedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -47,7 +46,7 @@ public class AccountHolderController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
         try {
             if (accountHolderService.delete(id, userName)) {

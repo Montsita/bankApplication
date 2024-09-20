@@ -16,6 +16,6 @@ public abstract class User {
     private String name;
 
     @JsonManagedReference
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private UserRegistration userRegistration;
 }

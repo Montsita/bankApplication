@@ -2,6 +2,7 @@ package bankapp.bankApplication.model;
 
 import bankapp.bankApplication.enums.AccountStatus;
 import bankapp.bankApplication.enums.AccountType;
+import bankapp.bankApplication.enums.TransactionType;
 import bankapp.bankApplication.interfaces.AccountInterface;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -9,14 +10,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -60,7 +58,7 @@ public class Account implements AccountInterface {
             @AttributeOverride(name= "currency", column = @Column(name= "penaltyFee_currency"))
     })
     private Money penaltyFee;
-
+    private Boolean isPenalitzed;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "amount", column = @Column(name = "minimumBalance_amount")),
@@ -117,7 +115,7 @@ public class Account implements AccountInterface {
     private void interestRateApply(BigDecimal interesting){
         if (interesting.compareTo(BigDecimal.ZERO)!=0) {
             Transaction transaction=createTransaction(new Money(interesting));
-            transaction.setDescription("InterestRate apply");
+            transaction.setDescription(TransactionType.INTERESTRATE);
             addTransaction(transaction);
 
             this.getBalance().increaseAmount(interesting);
@@ -169,14 +167,20 @@ public class Account implements AccountInterface {
     }
     public Transaction minimumBalanceControl(){
         if (this.balance.getAmount().compareTo(this.minimumBalance.getAmount())<0) {
-            Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
-            Transaction transaction = createTransaction(amount);
-            transaction.setDescription("PenaltyFee");
-           // addTransaction(transaction);
-            return transaction;
+            if(this.isPenalitzed==false) {
+                Money amount = new Money(new BigDecimal(0).subtract(this.penaltyFee.getAmount()));
+                Transaction transaction = createTransaction(amount);
+                transaction.setDescription(TransactionType.PENALTYFEE);
+                // addTransaction(transaction);
+                this.isPenalitzed=true;
+                return transaction;
+            }
         }else{
-            return null;
+            if(this.isPenalitzed==true) {
+                this.isPenalitzed=false;
+            }
         }
+        return null;
     }
     public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         switch (this.type){
@@ -220,8 +224,6 @@ public class Account implements AccountInterface {
                 }else {
                     this.interestRate=interestRate;
                 }
-
-
                 break;
             case SAVINGS:
                 BigDecimal valueMin=new BigDecimal("0.0025");
@@ -263,7 +265,8 @@ public class Account implements AccountInterface {
         this.creationTime=LocalTime.now();
         this.lastDateUpdatedInterest=this.getCreationDate();
         this.penaltyFee = new Money(new BigDecimal("40"));
-
+        this.isPenalitzed=false;
+        this.setSecretKey("auto");
         initializeDefaultValue(this.type);
     }
     private void initializeDefaultValue(AccountType accountType){
@@ -273,7 +276,7 @@ public class Account implements AccountInterface {
                 this.minimumBalance= new Money(new BigDecimal("0"));
                 this.interestRate=new BigDecimal("0.1");
                 this.creditLimit=new Money(new BigDecimal("100"));
-                this.nextDateUpdateInterest=this.getCreationDate().plusDays(1);
+                this.nextDateUpdateInterest=this.getCreationDate();
                 this.balance=this.creditLimit;
                 break;
             case SAVINGS:
@@ -281,7 +284,7 @@ public class Account implements AccountInterface {
                 this.minimumBalance=new Money(new BigDecimal("100"));
                 this.interestRate=new BigDecimal("0.0025");
                 this.creditLimit=new Money(new BigDecimal("0"));
-                this.nextDateUpdateInterest=this.getCreationDate().plusYears(1);
+                this.nextDateUpdateInterest=this.getCreationDate();
                 break;
             case CHECKING:
                 this.monthlyMaintenanceFee=new Money(new BigDecimal("12"));

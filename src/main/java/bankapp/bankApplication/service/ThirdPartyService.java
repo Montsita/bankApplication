@@ -1,8 +1,8 @@
 package bankapp.bankApplication.service;
+import bankapp.bankApplication.enums.UserType;
 import bankapp.bankApplication.exception.UnauthorizedException;
-import bankapp.bankApplication.model.Admin;
 import bankapp.bankApplication.model.ThirdParty;
-import bankapp.bankApplication.repository.AdminRepository;
+import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.repository.ThirdPartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,19 @@ public class ThirdPartyService {
 
     public Optional<ThirdParty> getById(Long id){ return thirdPartyRepository.findById(id); }
 
-    public ThirdParty create(ThirdParty thirdParty , String userName) throws UnauthorizedException {
+    public ThirdParty create(ThirdParty thirdParty, String thirdUserName, String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
+            UserRegistration userRegistration =new UserRegistration();
+            userRegistration.setType( UserType.THIRD);
+            userRegistration.setUserName(thirdUserName);
+            userRegistration=userRegistrationService.create(userRegistration,userName);
+            thirdParty.setUserRegistration(userRegistration);
             return thirdPartyRepository.save(thirdParty);
         }else{
             throw new UnauthorizedException("Only ADMIN users can create thirdParty.");
         }
     }
+
     public Optional<ThirdParty> change(ThirdParty thirdParty , String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
             if (thirdPartyRepository.existsById(thirdParty.getId())) {

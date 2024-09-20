@@ -1,6 +1,5 @@
 package bankapp.bankApplication.repository;
 
-import bankapp.bankApplication.model.AccountHolder;
 import bankapp.bankApplication.model.Transaction;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,8 @@
 package bankapp.bankApplication.service;
+import bankapp.bankApplication.enums.UserType;
 import bankapp.bankApplication.exception.UnauthorizedException;
-import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.AccountHolder;
+import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.repository.AccountHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,13 @@ public class AccountHolderService {
         }
     }
 
-    public AccountHolder create(AccountHolder accountHolder , String userName) throws UnauthorizedException {
+    public AccountHolder create(AccountHolder accountHolder , String accountHolderUserName, String userName) throws UnauthorizedException {
         if (userRegistrationService.isAdmin(userName)) {
+            UserRegistration userRegistration =new UserRegistration();
+            userRegistration.setType( UserType.HOLDER);
+            userRegistration.setUserName(accountHolderUserName);
+            userRegistration=userRegistrationService.create(userRegistration,userName);
+            accountHolder.setUserRegistration(userRegistration);
             return accountHolderRepository.save(accountHolder);
         }else{
             throw new UnauthorizedException("Only ADMIN users can create accountHolder.");

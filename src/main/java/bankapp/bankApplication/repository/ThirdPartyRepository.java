@@ -1,7 +1,6 @@
 package bankapp.bankApplication.repository;
 
 
-import bankapp.bankApplication.model.AccountHolder;
 //import bankapp.bankApplication.model.ThirdParty;
 import bankapp.bankApplication.model.ThirdParty;
 import org.springframework.data.jpa.repository.JpaRepository;

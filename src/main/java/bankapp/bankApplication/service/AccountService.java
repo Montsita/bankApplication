@@ -1,5 +1,8 @@
 package bankapp.bankApplication.service;
 import bankapp.bankApplication.dto.AccountPasswordUpdateDTO;
+import bankapp.bankApplication.enums.AccountType;
+import bankapp.bankApplication.enums.InterestType;
+import bankapp.bankApplication.enums.TransactionType;
 import bankapp.bankApplication.exception.PasswordNotAvailable;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
@@ -8,10 +11,13 @@ import bankapp.bankApplication.model.Transaction;
 import bankapp.bankApplication.repository.AccountRepository;
 import bankapp.bankApplication.repository.AdminRepository;
 import bankapp.bankApplication.repository.TransactionRepository;
+import bankapp.bankApplication.tools.Operation;
+import bankapp.bankApplication.tools.ResInterestCalculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +42,28 @@ public class AccountService {
     public Optional<Account> getById(Long id) {
         Optional<Account> account= accountRepository.findById(id);
         if (account.isPresent()){
-            account.get().interestRateApplyAA();
-            accountRepository.save(account.get());
+            Account acc=account.get();
+            ResInterestCalculation res=null;
+            if(acc.getType()== AccountType.CREDITCARD) {
+                BigDecimal interestCreditCard=BigDecimal.ZERO.subtract(acc.getInterestRate());
+                BigDecimal amount=acc.getCreditLimit().getAmount().subtract(acc.getBalance().getAmount());
+                res= Operation.interestCalculation(acc.getNextDateUpdateInterest(),
+                        LocalDate.now(),amount,interestCreditCard, InterestType.MONTHLY);
+            }else{
+                 res= Operation.interestCalculation(acc.getNextDateUpdateInterest(),
+                         LocalDate.now(),acc.getBalance().getAmount(),acc.getInterestRate(), InterestType.MONTHLY);
+            }
+
+            if (res!=null && res.getCalculation().compareTo(BigDecimal.ZERO)!=0){
+                Transaction transaction=acc.createTransaction(new Money(res.getCalculation()));
+                transaction.setDescription(TransactionType.INTERESTRATE);
+                transactionRepository.save(transaction);
+                acc.addTransaction(transaction);
+                acc.setNextDateUpdateInterest(res.getNextDateCalculation());
+                accountRepository.save(account.get());
+            }
+            //account.get().interestRateApplyAA();
+
         }
         return account;
     }
@@ -90,6 +116,11 @@ public class AccountService {
 
                 Money money=new Money(amount);
                 Transaction transaction=account.createTransaction(money);
+                if (amount.compareTo(BigDecimal.ZERO)>0) {
+                    transaction.setDescription(TransactionType.DEPOSIT);
+                }else if(amount.compareTo(BigDecimal.ZERO)<0){
+                    transaction.setDescription(TransactionType.WITHDRAW);
+                }
                 transactionRepository.save(transaction);
                 account.addTransaction(transaction);
 
@@ -118,6 +149,7 @@ public class AccountService {
                     BigDecimal subtraction=new BigDecimal(0).subtract(amount);//negativo
                     Money moneyOrigin=new Money(subtraction);
                     Transaction transactionOrigin =accountOrigin.createTransaction(moneyOrigin);
+                    transactionOrigin.setDescription(TransactionType.TRANSFER);
                     transactionOrigin.setOriginId(id);
                     transactionOrigin.setDestinyId(destinyId);
                     transactionOrigin.setConcept(concept);
@@ -134,6 +166,7 @@ public class AccountService {
                     Account accountDestiny=accountRepository.getById(destinyId);
                     Money moneyDestiny=new Money(amount);
                     Transaction transactionDestiny =accountDestiny.createTransaction(moneyDestiny);
+                    transactionDestiny.setDescription(TransactionType.TRANSFER);
                     transactionDestiny.setOriginId(id);
                     transactionDestiny.setDestinyId(destinyId);
                     transactionDestiny.setConcept(concept);

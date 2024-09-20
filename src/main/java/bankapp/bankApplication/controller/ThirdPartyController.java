@@ -1,15 +1,13 @@
 package bankapp.bankApplication.controller;
 
-import bankapp.bankApplication.model.Admin;
+import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.ThirdParty;
-import bankapp.bankApplication.service.AdminService;
 import bankapp.bankApplication.service.ThirdPartyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +25,36 @@ public class ThirdPartyController {
     public ResponseEntity<ThirdParty> getById(@PathVariable Long id){
         Optional<ThirdParty> thirdParty = thirdPartyService.getById(id);
         return thirdParty.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/create")
+    public ThirdParty create(@RequestBody ThirdParty thirdParty , @RequestParam String userRegistrationUserName, @RequestParam String userName) {
+        try {
+            return thirdPartyService.create(thirdParty,userRegistrationUserName,userName);
+        } catch (UnauthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @PutMapping("/change")
+    public ResponseEntity<ThirdParty> change (@RequestBody ThirdParty thirdParty, @RequestParam String userName) {
+        try{
+            Optional<ThirdParty> change = thirdPartyService.change(thirdParty, userName);
+            return change.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+        } catch (UnauthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
+        try {
+            if (thirdPartyService.delete(id, userName)) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.notFound().build();
+        }catch (UnauthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }

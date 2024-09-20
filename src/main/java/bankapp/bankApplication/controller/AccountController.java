@@ -1,13 +1,10 @@
 package bankapp.bankApplication.controller;
 
 import bankapp.bankApplication.dto.AccountPasswordUpdateDTO;
-import bankapp.bankApplication.dto.RegistrationUpdateAllDTO;
-import bankapp.bankApplication.exception.AdminNotFoundException;
 import bankapp.bankApplication.exception.PasswordNotAvailable;
 import bankapp.bankApplication.exception.UnauthorizedException;
 import bankapp.bankApplication.model.Account;
 import bankapp.bankApplication.model.Transaction;
-import bankapp.bankApplication.model.UserRegistration;
 import bankapp.bankApplication.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -31,6 +31,12 @@ public class TransactionController {
     public List<Transaction> getByAccountId(@PathVariable Long accountId){
         return transactionService.getByAccountId(accountId);
     }
+
+    @GetMapping("/last/{accountId}")
+    public Transaction getLastTransaction(@PathVariable Long accountId){
+        return transactionService.getLastTransaccion(accountId);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id, @RequestParam String userName) throws UnauthorizedException {
         try {
@@ -47,11 +53,6 @@ public class TransactionController {
     public ResponseEntity<Void> delete(@PathVariable Long accountId)  {
         transactionService.deleteByAccountId(accountId);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/last/{accountId}")
-    public Transaction getLastTransaction(@PathVariable Long accountId){
-        return transactionService.getLastTransaccion(accountId);
     }
 
 }
