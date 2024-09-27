@@ -156,6 +156,7 @@ public class AccountService {
     public boolean changePassword(Long id , AccountPasswordUpdateDTO accountPasswordUpdateDTO) throws PasswordNotAvailable {
         if (accountRepository.existsById(id)) {
             Account account =accountRepository.getById(id);
+
             if (account.getSecretKey().equals((accountPasswordUpdateDTO.getOldPassword()))) {
                 account.setSecretKey(accountPasswordUpdateDTO.getNewPassword());
                 accountRepository.save(account);

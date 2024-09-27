@@ -159,7 +159,6 @@ class AccountControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
-
     @Test
     public void testDeleteNoAdmin() throws Exception{
         Long accountId = 1L;
