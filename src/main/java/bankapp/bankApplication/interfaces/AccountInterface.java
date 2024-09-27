@@ -1,6 +1,6 @@
 package bankapp.bankApplication.interfaces;
 
-import bankapp.bankApplication.model.Transaction;
+import bankapp.bankApplication.model.transactions.Transaction;
 
 public interface AccountInterface {
     void addTransaction(Transaction transaction);

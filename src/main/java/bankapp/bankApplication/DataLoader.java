@@ -1,19 +1,26 @@
 package bankapp.bankApplication;
 
 import bankapp.bankApplication.enums.AccountType;
-import bankapp.bankApplication.enums.UserType;
-import bankapp.bankApplication.model.*;
 
-import bankapp.bankApplication.model.Account;
-import bankapp.bankApplication.model.AccountHolder;
-import bankapp.bankApplication.model.Admin;
-import bankapp.bankApplication.repository.*;
+
+import bankapp.bankApplication.model.accounts.Account;
+import bankapp.bankApplication.model.registrations.Role;
+import bankapp.bankApplication.model.transactions.Transaction;
+import bankapp.bankApplication.model.users.AccountHolder;
+import bankapp.bankApplication.model.users.Admin;
+import bankapp.bankApplication.model.contacts.Address;
+import bankapp.bankApplication.model.registrations.UserRegistration;
+import bankapp.bankApplication.repository.impl.*;
+
+import bankapp.bankApplication.service.interfaces.UserRegistrationServiceInterface;
+import bankapp.bankApplication.tools.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Component
 public class DataLoader  implements CommandLineRunner {
@@ -31,7 +38,8 @@ public class DataLoader  implements CommandLineRunner {
     private ThirdPartyRepository thirdPartyRepository;
     @Autowired
     private UserRegistrationRepository userRegistrationRepository;
-
+    @Autowired
+    private UserRegistrationServiceInterface userRegistrationService;
     @Override
     public void run(String... args) throws Exception {
 
@@ -41,8 +49,7 @@ public class DataLoader  implements CommandLineRunner {
         adminRepository.save(admin1);
 
         UserRegistration userRegistration1 = new UserRegistration(admin1);
-        userRegistration1.setType(UserType.ADMIN);
-        userRegistration1.setUserName("Montsita");
+        userRegistration1.setUsername("Montsita");
         userRegistrationRepository.save(userRegistration1);
 
         admin1.setUserRegistration(userRegistration1);
@@ -53,8 +60,7 @@ public class DataLoader  implements CommandLineRunner {
         adminRepository.save(admin2);
 
         UserRegistration userRegistration2 = new UserRegistration(admin2);
-        userRegistration2.setType(UserType.ADMIN);
-        userRegistration2.setUserName("Joselito");
+        userRegistration2.setUsername("Joselito");
         userRegistrationRepository.save(userRegistration2);
 
         admin2.setUserRegistration(userRegistration2);
@@ -78,8 +84,7 @@ public class DataLoader  implements CommandLineRunner {
         accountHolderRepository.save(accountHolder1);
 
         UserRegistration userRegistration3 = new UserRegistration(accountHolder1);
-        userRegistration3.setType(UserType.HOLDER);
-        userRegistration3.setUserName("userAntonia");
+        userRegistration3.setUsername("userAntonia");
         userRegistrationRepository.save(userRegistration3);
 
         accountHolder1.setUserRegistration(userRegistration3);
@@ -94,8 +99,7 @@ public class DataLoader  implements CommandLineRunner {
 
 
         UserRegistration userRegistration4 = new UserRegistration(accountHolder2);
-        userRegistration4.setType(UserType.HOLDER);
-        userRegistration4.setUserName("userManolo");
+        userRegistration4.setUsername("userManolo");
         userRegistrationRepository.save(userRegistration4);
 
         accountHolder2.setUserRegistration(userRegistration4);
@@ -128,7 +132,19 @@ public class DataLoader  implements CommandLineRunner {
         accountRepository.save(accountChk1);
 
 
+        userRegistrationService.saveRole(new Role(null, "ROLE_USER"));
+        userRegistrationService.saveRole(new Role(null, "ROLE_ADMIN"));
 
+        userRegistrationService.saveUser(new UserRegistration(null, "John Doe", "john" ,"1234", new ArrayList<>()));
+        userRegistrationService.saveUser(new UserRegistration(null, "James Smith", "james",  "1234", new ArrayList<>()));
+        userRegistrationService.saveUser(new UserRegistration(null, "Jane Carry", "jane",  "1234", new ArrayList<>()));
+        userRegistrationService.saveUser(new UserRegistration(null, "Chris Anderson", "chris",  "1234", new ArrayList<>()));
+
+        userRegistrationService.addRoleToUser("john", "ROLE_USER");
+        userRegistrationService.addRoleToUser("james", "ROLE_ADMIN");
+        userRegistrationService.addRoleToUser("jane", "ROLE_USER");
+        userRegistrationService.addRoleToUser("chris", "ROLE_ADMIN");
+        userRegistrationService.addRoleToUser("chris", "ROLE_USER");
 
 
 

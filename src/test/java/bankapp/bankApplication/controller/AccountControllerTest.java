@@ -1,14 +1,16 @@
 package bankapp.bankApplication.controller;
 
+import bankapp.bankApplication.controller.impl.AccountController;
 import bankapp.bankApplication.enums.AccountType;
 import bankapp.bankApplication.enums.UserType;
 import bankapp.bankApplication.exception.UnauthorizedException;
-import bankapp.bankApplication.model.*;
-import bankapp.bankApplication.model.Account;
-import bankapp.bankApplication.model.AccountHolder;
-import bankapp.bankApplication.model.Admin;
-import bankapp.bankApplication.repository.*;
-import bankapp.bankApplication.service.AccountService;
+import bankapp.bankApplication.model.accounts.Account;
+import bankapp.bankApplication.model.users.AccountHolder;
+import bankapp.bankApplication.model.users.Admin;
+import bankapp.bankApplication.model.contacts.Address;
+import bankapp.bankApplication.model.registrations.UserRegistration;
+import bankapp.bankApplication.repository.impl.*;
+import bankapp.bankApplication.service.impl.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
