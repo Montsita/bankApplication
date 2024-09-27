@@ -11,6 +11,7 @@ import bankapp.bankApplication.model.contacts.Address;
 import bankapp.bankApplication.model.registrations.UserRegistration;
 import bankapp.bankApplication.repository.impl.*;
 import bankapp.bankApplication.service.impl.AccountService;
+import bankapp.bankApplication.tools.Money;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -115,8 +116,7 @@ class AccountControllerTest {
         adminRepository.save(admin1);
 
         UserRegistration userRegistration1 = new UserRegistration(admin1);
-        userRegistration1.setType(UserType.ADMIN);
-        userRegistration1.setUserName("Montsita");
+        userRegistration1.setUsername("Montsita");
         userRegistrationRepository.save(userRegistration1);
 
         admin1.setUserRegistration(userRegistration1);
@@ -152,12 +152,10 @@ class AccountControllerTest {
     @Test
     public void testDeleteAccounts() throws Exception{
         Long accountId = 1L;
-        String userName = "Montsita";
 
-        when(accountService.delete(accountId, userName)).thenReturn(true);
+        when(accountService.delete(accountId)).thenReturn(true);
 
         mockMvc.perform(delete("/account/delete/{id}", accountId)
-                        .param("userName", userName)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -165,13 +163,11 @@ class AccountControllerTest {
     @Test
     public void testDeleteNoAdmin() throws Exception{
         Long accountId = 1L;
-        String userName = "Antonia";
 
-        when(accountService.delete(accountId, userName))
+        when(accountService.delete(accountId))
                 .thenThrow(new UnauthorizedException("Only ADMIN users can delete accounts."));
 
         mockMvc.perform(delete("/account/delete/{id}", accountId)
-                        .param("userName", userName)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
                 .andExpect(content().string("Only ADMIN users can delete accounts."));
@@ -180,12 +176,10 @@ class AccountControllerTest {
     @Test
     public void testDeleteAdmin() throws Exception{
         Long accountId = 1L;
-        String userName = "Montsita";
 
-        when(accountService.delete(accountId, userName)).thenReturn(true);
+        when(accountService.delete(accountId)).thenReturn(true);
 
         mockMvc.perform(delete("/account/delete/{id}", accountId)
-                        .param("userName", userName)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
